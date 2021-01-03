@@ -1,0 +1,22 @@
+{
+  "name": "blinka_reporter",
+  "version": "0.0.1",
+  "author": "David Wessman <david@wessman.co>",
+  "license": "MIT",
+  "devDependencies": {
+    "@prettier/plugin-ruby": "^1.2.2",
+    "husky": "^4.3.6",
+    "lint-staged": "^10.5.3"
+  },
+  "scripts": {
+    "pretty": "./node_modules/.bin/prettier --write ."
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{md,rb,json,yml,gemspec}": "./node_modules/.bin/prettier --write"
+  }
+}
