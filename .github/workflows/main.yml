@@ -29,3 +29,12 @@ jobs:
 
       - name: Run tests
         run: bundle exec rake test
+
+      - name: Report to Blinka
+        if: ${{ always() }}
+        env:
+          BLINKA_BRANCH: main
+          BLINKA_REPOSITORY: davidwessman/blinka_reporter
+          BLINKA_TEAM_ID: ${{ secrets.BLINKA_TEAM_ID }}
+        run: |
+          bundle exec rake blinka:report || true

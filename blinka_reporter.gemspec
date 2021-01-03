@@ -7,9 +7,15 @@ Gem::Specification.new do |spec|
     'Use to format test results from Minitest and RSpec to use with Blinka.'
   spec.authors = ['David Wessman']
   spec.email = 'david@wessman.co'
-  spec.files = %w[lib/blinka_minitest.rb lib/minitest/blinka_plugin.rb]
+  spec.files = %w[
+    lib/blinka_minitest.rb
+    lib/minitest/blinka_plugin.rb
+    lib/blinka_client.rb
+  ]
   spec.homepage = 'https://rubygemspec.org/gems/blinka-reporter'
   spec.license = 'MIT'
+  spec.add_dependency('httparty', '~> 0.18.1')
+  spec.add_dependency('mimemagic', '~> 0.3.5')
   spec.add_development_dependency('minitest')
   spec.add_development_dependency('mocha', '~> 1.12')
   spec.add_development_dependency('rake')
