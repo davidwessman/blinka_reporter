@@ -1,5 +1,6 @@
 require 'minitest'
 require 'json'
+require 'blinka_minitest'
 
 module Minitest
   def self.plugin_blinka_init(options)
