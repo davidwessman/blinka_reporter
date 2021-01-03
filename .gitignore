@@ -17,6 +17,7 @@
 
 # Ignore all gems
 /*.gem
+Gemfile.lock
 
 .byebug_history
 /node_modules
