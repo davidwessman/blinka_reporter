@@ -23,10 +23,10 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@prettier/plugin-ruby@^1.2.2":
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/@prettier/plugin-ruby/-/plugin-ruby-1.2.2.tgz#5fbef8a92d5c0cd4d864d4891587a19534bb746c"
-  integrity sha512-ZGu+PtOats0wmv5CDGDJ1g0dd/dpk4CfLJt0469aCzpnaFZ7Z4tkBk2UrBETgZJ0Hs6HCJIcJ0wgAuIws0nlaQ==
+"@prettier/plugin-ruby@^1.2.3":
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@prettier/plugin-ruby/-/plugin-ruby-1.2.3.tgz#e83b81ba41df91696dcbd66af9369a049e96919b"
+  integrity sha512-VIInXbwap5UO0cIIUjd02ugYk8m3Fkkily7NxzuUPoFSiF1RH4RCzIS4ic7lCKkIvYmFVupcKf6WYqaecbCrmA==
   dependencies:
     prettier ">=1.10"
 
