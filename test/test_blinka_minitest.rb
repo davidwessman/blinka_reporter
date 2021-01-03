@@ -30,7 +30,7 @@ class BlinkaMinitestTest < Minitest::Test
     test_result.source_location = ["#{__dir__}/test_blinka_minitest.rb", 10]
     blinka = BlinkaMinitest.new(test_result)
 
-    assert_nil(blinka.kind)
+    assert_equal('general', blinka.kind)
   end
 
   def test_message

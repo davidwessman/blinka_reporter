@@ -11,7 +11,7 @@ class BlinkaMinitest
 
   def kind
     parts = self.path.gsub('test/', '').split('/')
-    parts.first if parts.length > 1
+    parts.length > 1 ? parts.first : 'general'
   end
 
   def message
