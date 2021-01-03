@@ -11,4 +11,6 @@ Gem::Specification.new do |spec|
   spec.homepage = 'https://rubygemspec.org/gems/blinka-reporter'
   spec.license = 'MIT'
   spec.add_development_dependency('mocha', '~> 1.12')
+  spec.add_development_dependency('rake')
+  spec.add_development_dependency('minitest')
 end
