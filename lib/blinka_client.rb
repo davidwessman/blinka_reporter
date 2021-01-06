@@ -3,10 +3,11 @@ require 'httparty'
 
 class BlinkaClient
   class BlinkaConfig
-    attr_reader(:branch, :commit, :host, :repository, :team_id)
+    attr_reader(:branch, :commit, :host, :repository, :team_id, :team_secret, :jwt_token)
     def initialize
       @host = ENV.fetch('BLINKA_HOST', 'https://blinkblink.herokuapp.com')
       @team_id = ENV.fetch('BLINKA_TEAM_ID')
+      @team_secret = ENV.fetch('BLINKA_TEAM_SECRET')
       @repository = ENV.fetch('BLINKA_REPOSITORY')
       @branch = ENV.fetch('BLINKA_BRANCH')
       @commit = `git rev-parse HEAD`.chomp
@@ -22,6 +23,7 @@ class BlinkaClient
   end
 
   def report(filepath: './blinka_results.json')
+    self.authenticate
     data = JSON.parse(File.open(filepath).read)
 
     results =
@@ -54,9 +56,12 @@ class BlinkaClient
 
     response =
       self.class.post(
-        "/teams/#{@config.team_id}/reports",
+        "/report",
         body: body.to_json,
-        headers: { 'Content-Type' => 'application/json' }
+        headers: {
+          'Content-Type' => 'application/json',
+          'Authorization' => "Bearer #{@jwt_token}"
+        }
       )
     case response.code
     when 200
@@ -86,6 +91,23 @@ class BlinkaClient
   end
 
   private
+
+  def authenticate
+    response = self.class.post(
+      "/authentication",
+      body: {
+        token_id: @config.team_id,
+        token_secret: @config.team_secret
+      }.to_json,
+      headers: { 'Content-Type' => 'application/json' }
+    )
+    case response.code
+    when 200
+      @jwt_token = JSON.parse(response.body).dig('auth_token')
+    else
+      raise(BlinkaError, 'Could not authenticate to API')
+    end
+  end
 
   def self.presign_image(filename:, content_type:)
     response =
