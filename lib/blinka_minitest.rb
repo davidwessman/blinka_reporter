@@ -7,6 +7,8 @@ class BlinkaMinitest
   def path
     current_dir = Dir.getwd
     test_result.source_location.first.gsub(current_dir, '').delete_prefix('/')
+  rescue StandardError
+    test_result.name
   end
 
   def kind

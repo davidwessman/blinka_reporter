@@ -16,6 +16,7 @@ Gem::Specification.new do |spec|
   spec.license = 'MIT'
   spec.add_dependency('httparty', '~> 0.18.1')
   spec.add_dependency('mimemagic', '~> 0.3.5')
+  spec.add_development_dependency('dotenv')
   spec.add_development_dependency('minitest')
   spec.add_development_dependency('mocha', '~> 1.12')
   spec.add_development_dependency('rake')

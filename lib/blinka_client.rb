@@ -3,7 +3,15 @@ require 'httparty'
 
 class BlinkaClient
   class BlinkaConfig
-    attr_reader(:branch, :commit, :host, :repository, :team_id, :team_secret, :jwt_token)
+    attr_reader(
+      :branch,
+      :commit,
+      :host,
+      :repository,
+      :team_id,
+      :team_secret,
+      :jwt_token
+    )
     def initialize
       @host = ENV.fetch('BLINKA_HOST', 'https://blinkblink.herokuapp.com')
       @team_id = ENV.fetch('BLINKA_TEAM_ID')
@@ -56,7 +64,7 @@ class BlinkaClient
 
     response =
       self.class.post(
-        "/report",
+        '/report',
         body: body.to_json,
         headers: {
           'Content-Type' => 'application/json',
@@ -90,17 +98,16 @@ class BlinkaClient
     )
   end
 
-  private
-
   def authenticate
-    response = self.class.post(
-      "/authentication",
-      body: {
-        token_id: @config.team_id,
-        token_secret: @config.team_secret
-      }.to_json,
-      headers: { 'Content-Type' => 'application/json' }
-    )
+    response =
+      self.class.post(
+        '/authentication',
+        body: {
+          token_id: @config.team_id,
+          token_secret: @config.team_secret
+        }.to_json,
+        headers: { 'Content-Type' => 'application/json' }
+      )
     case response.code
     when 200
       @jwt_token = JSON.parse(response.body).dig('auth_token')
