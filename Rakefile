@@ -1,5 +1,6 @@
 require 'rake/testtask'
 require './lib/blinka_client'
+require 'dotenv/load'
 
 Rake::TestTask.new { |t| t.libs << 'test' }
 
