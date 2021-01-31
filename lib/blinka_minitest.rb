@@ -5,10 +5,17 @@ class BlinkaMinitest
   end
 
   def path
-    current_dir = Dir.getwd
-    test_result.source_location.first.gsub(current_dir, '').delete_prefix('/')
-  rescue StandardError
-    test_result.name
+    @path ||= source_location.first.gsub(Dir.getwd, '').delete_prefix('/')
+  end
+
+  # Handle broken API in Minitest between 5.10 and 5.11
+  # https://github.com/minitest-reporters/minitest-reporters/blob/e9092460b5a5cf5ca9eb375428217cbb2a7f6dbb/lib/minitest/reporters/default_reporter.rb#L159
+  def source_location
+    if test_result.respond_to?(:klass)
+      test_result.source_location
+    else
+      test_result.method(test_result.name).source_location
+    end
   end
 
   def kind

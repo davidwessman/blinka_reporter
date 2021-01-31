@@ -14,14 +14,6 @@ class BlinkaMinitestTest < Minitest::Test
     assert_equal('test/model/test_blinka_minitest.rb', blinka.path)
   end
 
-  def test_source_location_no_source_location
-    test_result = Minitest::Result.new('test_source_location')
-    test_result.source_location = nil
-    blinka = BlinkaMinitest.new(test_result)
-
-    assert_equal('test_source_location', blinka.path)
-  end
-
   def test_kind
     test_result = Minitest::Result.new('test_kind')
     test_result.source_location = [
