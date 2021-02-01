@@ -73,7 +73,9 @@ class BlinkaClient
       )
     case response.code
     when 200
-      puts "Reported #{data.dig('nbr_tests')} tests!"
+      puts "Reported #{data.dig('nbr_tests')} tests of commit #{
+             @config.commit
+           }!"
     else
       raise(BlinkaError, "Could not report, got response code #{response.code}")
     end

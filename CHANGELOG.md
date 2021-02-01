@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.2] - 2021-02-01
+
+### Added
+
+- Debug print for which commit hash was reported.
+
 ## [0.0.1] - 2021-01-31
 
 ### Added
@@ -17,5 +23,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Handle inconsistency in source_location of test result in Minitest for different versions.
 
-[unreleased]: https://github.com/davidwessman/blinka_reporter/compare/v0.0.1...HEAD
+[unreleased]: https://github.com/davidwessman/blinka_reporter/compare/v0.0.2...HEAD
+[0.0.2]: https://github.com/davidwessman/blinka_reporter/compare/v0.0.1...v0.0.2
 [0.0.1]: https://github.com/davidwessman/blinka_reporter/releases/tag/v0.0.1
