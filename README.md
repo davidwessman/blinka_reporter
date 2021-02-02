@@ -43,6 +43,23 @@ require 'blinka_client'
 BlinkaClient.new.report
 ```
 
+## How can I send report in Github Action?
+
+Add a step to your Github Action Workflow after running tests:
+
+```yaml
+- name: Report to Blinka
+  if: ${{ always() }}
+  env:
+    BLINKA_BRANCH: main
+    BLINKA_REPOSITORY: davidwessman/blinka_reporter
+    BLINKA_TEAM_ID: ${{ secrets.BLINKA_TEAM_ID }}
+    BLINKA_TEAM_SECRET: ${{ secrets.BLINKA_TEAM_SECRET }}
+    BLINKA_COMMIT: ${{ github.event.pull_request.head.sha || github.sha }}
+  run: |
+    bundle exec rake blinka:report
+```
+
 # License
 
 `blinka-reporter` is licensed under the MIT license, see [LICENSE](LICENSE) for details.
