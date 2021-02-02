@@ -18,7 +18,7 @@ class BlinkaClient
       @team_secret = ENV.fetch('BLINKA_TEAM_SECRET')
       @repository = ENV.fetch('BLINKA_REPOSITORY')
       @branch = ENV.fetch('BLINKA_BRANCH')
-      @commit = `git rev-parse HEAD`.chomp
+      @commit = ENV.fetch('BLINKA_COMMIT', `git rev-parse HEAD`.chomp)
     end
   end
 
