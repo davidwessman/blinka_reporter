@@ -1,7 +1,7 @@
 Gem::Specification.new do |spec|
   spec.name = 'blinka-reporter'
-  spec.version = '0.0.3'
-  spec.date = '2021-02-02'
+  spec.version = '0.1.0'
+  spec.date = '2021-02-03'
   spec.summary = 'Format tests for Blinka'
   spec.description =
     'Use to format test results from Minitest to use with Blinka.'
