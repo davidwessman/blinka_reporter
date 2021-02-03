@@ -51,7 +51,7 @@ Add a step to your Github Action Workflow after running tests:
 - name: Report to Blinka
   if: ${{ always() }}
   env:
-    BLINKA_BRANCH: main
+    BLINKA_TAG: ""
     BLINKA_REPOSITORY: davidwessman/blinka_reporter
     BLINKA_TEAM_ID: ${{ secrets.BLINKA_TEAM_ID }}
     BLINKA_TEAM_SECRET: ${{ secrets.BLINKA_TEAM_SECRET }}
@@ -59,6 +59,8 @@ Add a step to your Github Action Workflow after running tests:
   run: |
     bundle exec rake blinka:report
 ```
+
+`BLINKA_TAG` is optional and can be used to separate different reports, e.g. if using a build matrix.
 
 # License
 

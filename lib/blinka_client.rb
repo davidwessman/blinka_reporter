@@ -4,7 +4,7 @@ require 'httparty'
 class BlinkaClient
   class BlinkaConfig
     attr_reader(
-      :branch,
+      :tag,
       :commit,
       :host,
       :repository,
@@ -17,7 +17,7 @@ class BlinkaClient
       @team_id = ENV.fetch('BLINKA_TEAM_ID')
       @team_secret = ENV.fetch('BLINKA_TEAM_SECRET')
       @repository = ENV.fetch('BLINKA_REPOSITORY')
-      @branch = ENV.fetch('BLINKA_BRANCH')
+      @tag = ENV.fetch('BLINKA_TAG', '')
       @commit = ENV.fetch('BLINKA_COMMIT', `git rev-parse HEAD`.chomp)
     end
   end
@@ -50,7 +50,7 @@ class BlinkaClient
     body = {
       report: {
         repository: @config.repository,
-        branch: @config.branch,
+        tag: @config.tag,
         commit: @config.commit,
         metadata: {
           total_time: data.dig('total_time'),
