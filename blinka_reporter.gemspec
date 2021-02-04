@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name = 'blinka-reporter'
-  spec.version = '0.1.0'
+  spec.version = '0.1.1'
   spec.date = '2021-02-03'
   spec.summary = 'Format tests for Blinka'
   spec.description =
@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
     lib/minitest/blinka_plugin.rb
     lib/blinka_client.rb
   ]
-  spec.homepage = 'https://rubygemspec.org/gems/blinka-reporter'
+  spec.homepage = 'https://github.com/davidwessman/blinka_reporter'
   spec.license = 'MIT'
   spec.add_dependency('httparty', '~> 0.18.1')
   spec.add_dependency('mimemagic', '~> 0.3.5')
