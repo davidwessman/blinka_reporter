@@ -7,7 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.1.0] - 20201-02-03
+## [0.1.1] - 2021-02-04
+
+### Changed
+
+- Correct the homepage on rubygems.
+
+## [0.1.0] - 2021-02-03
 
 ### Added
 
@@ -39,7 +45,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Handle inconsistency in source_location of test result in Minitest for different versions.
 
-[unreleased]: https://github.com/davidwessman/blinka_reporter/compare/v0.1.0...HEAD
+[unreleased]: https://github.com/davidwessman/blinka_reporter/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/davidwessman/blinka_reporter/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/davidwessman/blinka_reporter/compare/v0.0.3...v0.1.0
 [0.0.3]: https://github.com/davidwessman/blinka_reporter/compare/v0.0.2...v0.0.3
 [0.0.2]: https://github.com/davidwessman/blinka_reporter/compare/v0.0.1...v0.0.2
