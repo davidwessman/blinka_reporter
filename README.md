@@ -5,6 +5,7 @@
 - [Which ruby testing frameworks are supported?](#which-ruby-testing-frameworks-are-supported)
 - [What is Blinka?](#what-is-blinka)
 - [How to send report to Blinka?](#how-to-send-report-to-blinka)
+- [How can I report tests in TAP-format?](#how-can-i-report-tests-in-tap-format)
 
 ## What does this gem do?
 
@@ -61,6 +62,46 @@ Add a step to your Github Action Workflow after running tests:
 ```
 
 `BLINKA_TAG` is optional and can be used to separate different reports, e.g. if using a build matrix.
+
+## How can I report tests in TAP-format?
+
+TAP-format ([Test anything protocol](https://testanything.org)) is used to parse tests results on for example Heroku CI.
+
+Set `BLINKA_TAP` environment variable to any value to get a report:
+
+```sh
+$ BLINKA_TAP=true rake
+Run options: --seed 33934
+
+# Running:
+
+..............
+
+Finished in 0.002069s, 6766.5538 runs/s, 9666.5054 assertions/s.
+
+14 runs, 20 assertions, 0 failures, 0 errors, 0 skips
+
+TAP version 13
+1..14
+ok 1 - test/test_blinka_minitest.rb - test_message
+ok 2 - test/test_blinka_minitest.rb - test_image
+ok 3 - test/test_blinka_minitest.rb - test_image_no_file
+ok 4 - test/test_blinka_minitest.rb - test_report_with_image
+ok 5 - test/test_blinka_minitest.rb - test_line
+ok 6 - test/test_blinka_minitest.rb - test_backtrace
+ok 7 - test/test_blinka_minitest.rb - test_line_no_failure
+ok 8 - test/test_blinka_minitest.rb - test_report
+ok 9 - test/test_blinka_minitest.rb - test_backtrace_no_failure
+ok 10 - test/test_blinka_minitest.rb - test_kind_no_folder
+ok 11 - test/test_blinka_minitest.rb - test_result
+ok 12 - test/test_blinka_minitest.rb - test_kind
+ok 13 - test/test_blinka_minitest.rb - test_message_no_failure
+ok 14 - test/test_blinka_minitest.rb - test_source_location
+
+Test results written to `./blinka_results.json`
+```
+
+It should format tests as TAP-format but still create the json-report which can be sent to Blinka.
 
 # License
 
