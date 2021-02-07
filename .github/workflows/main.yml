@@ -36,5 +36,6 @@ jobs:
           BLINKA_REPOSITORY: davidwessman/blinka_reporter
           BLINKA_TEAM_ID: ${{ secrets.BLINKA_TEAM_ID }}
           BLINKA_TEAM_SECRET: ${{ secrets.BLINKA_TEAM_SECRET }}
+          BLINKA_TAP: true
         run: |
           bundle exec rake blinka:report
