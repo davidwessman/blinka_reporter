@@ -13,12 +13,21 @@ class BlinkaClient
       :jwt_token
     )
     def initialize
-      @host = ENV.fetch('BLINKA_HOST', 'https://blinkblink.herokuapp.com')
-      @team_id = ENV.fetch('BLINKA_TEAM_ID')
-      @team_secret = ENV.fetch('BLINKA_TEAM_SECRET')
-      @repository = ENV.fetch('BLINKA_REPOSITORY')
+      @host = ENV.fetch('BLINKA_HOST', 'https://www.blinka.app')
+      @team_id = ENV.fetch('BLINKA_TEAM_ID', nil)
+      @team_secret = ENV.fetch('BLINKA_TEAM_SECRET', nil)
+      @repository = ENV.fetch('BLINKA_REPOSITORY', nil)
       @tag = ENV.fetch('BLINKA_TAG', '')
       @commit = ENV.fetch('BLINKA_COMMIT', `git rev-parse HEAD`.chomp)
+
+      if @team_id.nil? || @team_secret.nil? || @repository.nil?
+        raise(BlinkaError, <<~EOS)
+          Missing configuration, make sure to set required environment variables:
+          - BLINKA_TEAM_ID
+          - BLINKA_TEAM_SECRET
+          - BLINKA_REPOSITORY
+          EOS
+      end
     end
   end
 
