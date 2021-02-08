@@ -40,6 +40,12 @@ class BlinkaClient
   end
 
   def report(filepath: './blinka_results.json')
+    unless File.exists?(filepath)
+      raise(
+        BlinkaError,
+        'Could not find blinka_results.json, did tests run with environment variable BLINKA_JSON=true set?'
+      )
+    end
     self.authenticate
     data = JSON.parse(File.open(filepath).read)
 
