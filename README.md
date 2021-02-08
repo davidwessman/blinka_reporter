@@ -37,7 +37,7 @@ Blinka is a web service developed by [@davidwessman](https://github.com/davidwes
 
 ## How to send report to Blinka?
 
-After the tests have run and the `blinka_report.json` file is populated, run in ruby:
+After the tests have run with environment variable `BLINKA_JSON=true` and the `blinka_report.json` file is populated, run in ruby:
 
 ```ruby
 require 'blinka_client'
@@ -49,16 +49,20 @@ BlinkaClient.new.report
 Add a step to your Github Action Workflow after running tests:
 
 ```yaml
+- name: Run tests
+  env:
+    BLINKA_JSON: true
+  run: bundle exec rake test
+
 - name: Report to Blinka
   if: ${{ always() }}
   env:
-    BLINKA_TAG: ""
+    BLINKA_COMMIT: ${{ github.event.pull_request.head.sha || github.sha }}
     BLINKA_REPOSITORY: davidwessman/blinka_reporter
+    BLINKA_TAG: ""
     BLINKA_TEAM_ID: ${{ secrets.BLINKA_TEAM_ID }}
     BLINKA_TEAM_SECRET: ${{ secrets.BLINKA_TEAM_SECRET }}
-    BLINKA_COMMIT: ${{ github.event.pull_request.head.sha || github.sha }}
-  run: |
-    bundle exec rake blinka:report
+  run: bundle exec rake blinka:report
 ```
 
 `BLINKA_TAG` is optional and can be used to separate different reports, e.g. if using a build matrix.
@@ -97,11 +101,9 @@ ok 11 - test/test_blinka_minitest.rb - test_result
 ok 12 - test/test_blinka_minitest.rb - test_kind
 ok 13 - test/test_blinka_minitest.rb - test_message_no_failure
 ok 14 - test/test_blinka_minitest.rb - test_source_location
-
-Test results written to `./blinka_results.json`
 ```
 
-It should format tests as TAP-format but still create the json-report which can be sent to Blinka.
+It should format tests as TAP-format, it can be combined with `BLINKA_JSON=true` to still create the json-report which can be sent to Blinka.
 
 # License
 

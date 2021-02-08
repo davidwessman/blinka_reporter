@@ -26,14 +26,14 @@ module Minitest
 
       def report
         tap_report unless ENV['BLINKA_TAP'].nil?
-        blinka_report
+        json_report unless ENV['BLINKA_JSON'].nil?
 
         super
       end
 
       private
 
-      def blinka_report
+      def json_report
         result = {
           total_time: total_time,
           nbr_tests: count,

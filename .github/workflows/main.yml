@@ -28,6 +28,9 @@ jobs:
           key: bundle-${{ hashFiles('Gemfile.lock') }}
 
       - name: Run tests
+        env:
+          BLINKA_JSON: true
+          BLINKA_TAP: true
         run: bundle exec rake test
 
       - name: Report to Blinka
@@ -36,6 +39,5 @@ jobs:
           BLINKA_REPOSITORY: davidwessman/blinka_reporter
           BLINKA_TEAM_ID: ${{ secrets.BLINKA_TEAM_ID }}
           BLINKA_TEAM_SECRET: ${{ secrets.BLINKA_TEAM_SECRET }}
-          BLINKA_TAP: true
         run: |
           bundle exec rake blinka:report
