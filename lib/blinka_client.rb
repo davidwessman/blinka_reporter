@@ -23,7 +23,7 @@ class BlinkaClient
       @team_secret = ENV.fetch('BLINKA_TEAM_SECRET', nil)
       @repository = ENV.fetch('BLINKA_REPOSITORY', nil)
       @tag = ENV.fetch('BLINKA_TAG', '')
-      @commit = ENV.fetch('BLINKA_COMMIT', `git rev-parse HEAD`.chomp)
+      @commit = BlinkaClient.find_commit
 
       if @team_id.nil? || @team_secret.nil? || @repository.nil?
         raise(BlinkaError, <<~EOS)
@@ -197,5 +197,12 @@ class BlinkaClient
         "mime_type": presigned_post.dig('fields', 'Content-Type')
       }
     }
+  end
+
+  def self.find_commit
+    ENV.fetch(
+      'BLINKA_COMMIT',
+      ENV.fetch('HEROKU_TEST_RUN_COMMIT_VERSION', `git rev-parse HEAD`.chomp)
+    )
   end
 end
