@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.1] - 2021-02-12
+
+### Added
+
+- Setting `BLINKA_REPORT` with credentials allow report to be sent to Blinka directly at the end of the test run.
+
 ## [0.3.0] - 2021-02-08
 
 ### Changed
@@ -63,7 +69,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Handle inconsistency in source_location of test result in Minitest for different versions.
 
-[unreleased]: https://github.com/davidwessman/blinka_reporter/compare/v0.3.0...HEAD
+[unreleased]: https://github.com/davidwessman/blinka_reporter/compare/v0.3.1...HEAD
+[0.3.1]: https://github.com/davidwessman/blinka_reporter/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/davidwessman/blinka_reporter/compare/v0.2.1...v0.3.0
 [0.2.1]: https://github.com/davidwessman/blinka_reporter/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/davidwessman/blinka_reporter/compare/v0.1.1...v0.2.0

@@ -40,7 +40,7 @@ class BlinkaClient
   end
 
   def report(filepath: './blinka_results.json')
-    unless File.exists?(filepath)
+    unless File.exist?(filepath)
       raise(
         BlinkaError,
         'Could not find blinka_results.json, did tests run with environment variable BLINKA_JSON=true set?'
@@ -94,6 +94,12 @@ class BlinkaClient
     else
       raise(BlinkaError, "Could not report, got response code #{response.code}")
     end
+  rescue => error
+    raise(BlinkaError, <<-EOS)
+      BLINKA:
+        Failed to create report because of #{error.class} with message:
+        #{error.message}
+      EOS
   end
 
   def self.upload_image(filepath:)
