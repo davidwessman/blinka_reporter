@@ -6,7 +6,7 @@ on:
 jobs:
   tests:
     name: Tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     steps:
       - name: Checkout code
@@ -14,18 +14,14 @@ jobs:
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
 
       - name: Generate lockfile
         run: bundle lock
 
       - name: Run Setup
         run: ./bin/setup
-
-      - name: Cache dependencies
-        uses: actions/cache@v1
-        with:
-          path: vendor/bundle
-          key: bundle-${{ hashFiles('Gemfile.lock') }}
 
       - name: Run tests
         env:
