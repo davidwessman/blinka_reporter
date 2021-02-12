@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name = 'blinka-reporter'
-  spec.version = '0.3.1'
+  spec.version = '0.3.2'
   spec.date = '2021-02-12'
   spec.summary = 'Format tests for Blinka'
   spec.description =
@@ -20,4 +20,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency('minitest', '~> 5.0')
   spec.add_development_dependency('mocha', '~> 1.12')
   spec.add_development_dependency('rake', '~> 13')
+  spec.add_development_dependency('webmock', '~> 3.11')
 end
