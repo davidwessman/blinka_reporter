@@ -2,6 +2,10 @@ require 'mimemagic'
 require 'httparty'
 
 class BlinkaClient
+  DEFAULT_HOST = 'https://www.blinka.app'.freeze
+
+  include HTTParty
+
   class BlinkaConfig
     attr_reader(
       :tag,
@@ -12,8 +16,9 @@ class BlinkaClient
       :team_secret,
       :jwt_token
     )
+
     def initialize
-      @host = ENV.fetch('BLINKA_HOST', 'https://www.blinka.app')
+      @host = ENV.fetch('BLINKA_HOST', DEFAULT_HOST)
       @team_id = ENV.fetch('BLINKA_TEAM_ID', nil)
       @team_secret = ENV.fetch('BLINKA_TEAM_SECRET', nil)
       @repository = ENV.fetch('BLINKA_REPOSITORY', nil)
@@ -32,7 +37,6 @@ class BlinkaClient
   end
 
   class BlinkaError < StandardError; end
-  include HTTParty
 
   def initialize
     @config = BlinkaConfig.new
@@ -46,6 +50,12 @@ class BlinkaClient
         'Could not find blinka_results.json, did tests run with environment variable BLINKA_JSON=true set?'
       )
     end
+
+    if ENV.fetch('BLINKA_ALLOW_WEBMOCK_DISABLE', 'true') == 'true' &&
+         defined?(WebMock) && WebMock.respond_to?(:disable!)
+      WebMock.disable!
+    end
+
     self.authenticate
     data = JSON.parse(File.open(filepath).read)
 
@@ -100,6 +110,13 @@ class BlinkaClient
         Failed to create report because of #{error.class} with message:
         #{error.message}
       EOS
+  ensure
+    WebMock.enable! if defined?(WebMock) && WebMock.respond_to?(:enable!)
+  end
+
+  def self.report(filepath: './blinka_results.json')
+    client = BlinkaClient.new
+    client.report(filepath: filepath)
   end
 
   def self.upload_image(filepath:)

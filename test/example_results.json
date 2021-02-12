@@ -1,0 +1,113 @@
+{
+  "total_time": null,
+  "nbr_tests": 15,
+  "nbr_assertions": 20,
+  "seed": 38498,
+  "results": [
+    {
+      "kind": "general",
+      "name": "test_with_webmock_enabled",
+      "path": "test/test_blinka_client.rb",
+      "result": "pass",
+      "time": 4.400001489557326e-5
+    },
+    {
+      "kind": "general",
+      "name": "test_image",
+      "path": "test/test_blinka_minitest.rb",
+      "result": "pass",
+      "time": 0.00041199999395757914
+    },
+    {
+      "kind": "general",
+      "name": "test_image_no_file",
+      "path": "test/test_blinka_minitest.rb",
+      "result": "pass",
+      "time": 0.0002080000122077763
+    },
+    {
+      "kind": "general",
+      "name": "test_kind_no_folder",
+      "path": "test/test_blinka_minitest.rb",
+      "result": "pass",
+      "time": 4.499999340623617e-5
+    },
+    {
+      "kind": "general",
+      "name": "test_report_with_image",
+      "path": "test/test_blinka_minitest.rb",
+      "result": "pass",
+      "time": 0.00023200002033263445
+    },
+    {
+      "kind": "general",
+      "name": "test_message_no_failure",
+      "path": "test/test_blinka_minitest.rb",
+      "result": "pass",
+      "time": 1.1999974958598614e-5
+    },
+    {
+      "kind": "general",
+      "name": "test_backtrace_no_failure",
+      "path": "test/test_blinka_minitest.rb",
+      "result": "pass",
+      "time": 9.99998883344233e-6
+    },
+    {
+      "kind": "general",
+      "name": "test_result",
+      "path": "test/test_blinka_minitest.rb",
+      "result": "pass",
+      "time": 1.7999991541728377e-5
+    },
+    {
+      "kind": "general",
+      "name": "test_message",
+      "path": "test/test_blinka_minitest.rb",
+      "result": "pass",
+      "time": 1.09999964479357e-5
+    },
+    {
+      "kind": "general",
+      "name": "test_backtrace",
+      "path": "test/test_blinka_minitest.rb",
+      "result": "pass",
+      "time": 2.400000812485814e-5
+    },
+    {
+      "kind": "general",
+      "name": "test_source_location",
+      "path": "test/test_blinka_minitest.rb",
+      "result": "pass",
+      "time": 4.600000102072954e-5
+    },
+    {
+      "kind": "general",
+      "name": "test_kind",
+      "path": "test/test_blinka_minitest.rb",
+      "result": "pass",
+      "time": 3.7999998312443495e-5
+    },
+    {
+      "kind": "general",
+      "name": "test_line_no_failure",
+      "path": "test/test_blinka_minitest.rb",
+      "result": "pass",
+      "time": 9.000010322779417e-6
+    },
+    {
+      "kind": "general",
+      "name": "test_report",
+      "path": "test/test_blinka_minitest.rb",
+      "result": "pass",
+      "time": 5.8999983593821526e-5
+    },
+    {
+      "kind": "general",
+      "name": "test_line",
+      "path": "test/test_blinka_minitest.rb",
+      "result": "pass",
+      "time": 7.000000914558768e-5
+    }
+  ]
+}
