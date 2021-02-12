@@ -1,6 +1,7 @@
 require 'minitest'
 require 'json'
 require 'blinka_minitest'
+require 'blinka_client'
 
 module Minitest
   def self.plugin_blinka_init(options)
@@ -25,9 +26,12 @@ module Minitest
       end
 
       def report
-        tap_report unless ENV['BLINKA_TAP'].nil?
-        json_report unless ENV['BLINKA_JSON'].nil?
-
+        tap_report if ENV['BLINKA_TAP']
+        json_report if ENV['BLINKA_JSON'] || ENV['BLINKA_REPORT']
+        BlinkaClient.new.report if ENV['BLINKA_REPORT']
+      rescue BlinkaClient::BlinkaError => error
+        puts(error)
+      ensure
         super
       end
 
