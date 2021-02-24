@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.4] - 2021-02-24
+
+### Changed
+
+- Reported test cases now include the line in the file where they are defined, previously the line number was connected to the backtrace.
+
 ## [0.3.3] - 2021-02-13
 
 ### Added
@@ -81,7 +87,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Handle inconsistency in source_location of test result in Minitest for different versions.
 
-[unreleased]: https://github.com/davidwessman/blinka_reporter/compare/v0.3.3...HEAD
+[unreleased]: https://github.com/davidwessman/blinka_reporter/compare/v0.3.4...HEAD
+[0.3.4]: https://github.com/davidwessman/blinka_reporter/compare/v0.3.3...v0.3.4
 [0.3.3]: https://github.com/davidwessman/blinka_reporter/compare/v0.3.2...v0.3.3
 [0.3.2]: https://github.com/davidwessman/blinka_reporter/compare/v0.3.1...v0.3.2
 [0.3.1]: https://github.com/davidwessman/blinka_reporter/compare/v0.3.0...v0.3.1

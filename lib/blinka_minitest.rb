@@ -1,5 +1,4 @@
 class BlinkaMinitest
-  attr_reader(:test_result)
   def initialize(test_result)
     @test_result = test_result
   end
@@ -8,14 +7,19 @@ class BlinkaMinitest
     @path ||= source_location.first.gsub(Dir.getwd, '').delete_prefix('/')
   end
 
+  def line
+    @line ||= source_location.last
+  end
+
   # Handle broken API in Minitest between 5.10 and 5.11
   # https://github.com/minitest-reporters/minitest-reporters/blob/e9092460b5a5cf5ca9eb375428217cbb2a7f6dbb/lib/minitest/reporters/default_reporter.rb#L159
   def source_location
-    if test_result.respond_to?(:klass)
-      test_result.source_location
-    else
-      test_result.method(test_result.name).source_location
-    end
+    @source_location ||=
+      if @test_result.respond_to?(:klass)
+        @test_result.source_location
+      else
+        @test_result.method(@test_result.name).source_location
+      end
   end
 
   def kind
@@ -24,47 +28,34 @@ class BlinkaMinitest
   end
 
   def message
-    failure = test_result.failure
+    failure = @test_result.failure
     return unless failure
     "#{failure.error.class}: #{failure.error.message}"
   end
 
   def backtrace
-    return unless test_result.failure
-    Minitest.filter_backtrace(test_result.failure.backtrace)
+    return unless @test_result.failure
+    Minitest.filter_backtrace(@test_result.failure.backtrace)
   end
 
   def result
-    if test_result.error?
+    if @test_result.error?
       :error
-    elsif test_result.skipped?
+    elsif @test_result.skipped?
       :skip
-    elsif test_result.failure
+    elsif @test_result.failure
       :failed
     else
       :pass
     end
   end
 
-  def line
-    current_backtrace = backtrace
-    return if current_backtrace.nil?
-
-    row =
-      current_backtrace
-        .map { |row| row.split(':')[0..1] }
-        .detect { |row| row[0] == path }
-
-    return if row.nil?
-    row[1].to_i
-  end
-
   def time
-    test_result.time
+    @test_result.time
   end
 
   def name
-    test_result.name
+    @test_result.name
   end
 
   def image
