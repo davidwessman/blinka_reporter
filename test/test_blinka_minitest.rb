@@ -120,27 +120,6 @@ class BlinkaMinitestTest < Minitest::Test
     assert_equal(:error, blinka.result)
   end
 
-  def test_line
-    test_result = Minitest::Result.new('test')
-    test_result.failures = [
-      Minitest::Assertion.new('Expected nil to not be nil')
-    ]
-    test_result.failure.set_backtrace(
-      ["test/test_blinka_minitest.rb:54:in `test_backtrace'"]
-    )
-    test_result.source_location = ["#{__dir__}/test_blinka_minitest.rb", 10]
-    blinka = BlinkaMinitest.new(test_result)
-
-    assert_equal(54, blinka.line)
-  end
-
-  def test_line_no_failure
-    test_result = Minitest::Result.new('test')
-    blinka = BlinkaMinitest.new(test_result)
-
-    assert_nil(blinka.line)
-  end
-
   def test_image
     test_result = Minitest::Result.new('test')
     test_result.source_location = [
