@@ -26,13 +26,13 @@ module Minitest
       end
 
       def report
+        super
+
         tap_report if ENV['BLINKA_TAP']
         json_report if ENV['BLINKA_JSON'] || ENV['BLINKA_REPORT']
         BlinkaClient.new.report if ENV['BLINKA_REPORT']
       rescue BlinkaClient::BlinkaError => error
         puts(error)
-      ensure
-        super
       end
 
       private
@@ -42,6 +42,8 @@ module Minitest
           total_time: total_time,
           nbr_tests: count,
           nbr_assertions: assertions,
+          commit: find_commit,
+          tag: ENV.fetch('BLINKA_TAG', ''),
           seed: options[:seed],
           results:
             tests.map { |test_result| BlinkaMinitest.new(test_result).report }
@@ -82,6 +84,16 @@ module Minitest
 
       def print_padded_comment(line)
         puts "##{' ' * TAP_COMMENT_PAD + line}"
+      end
+
+      def find_commit
+        ENV.fetch(
+          'BLINKA_COMMIT',
+          ENV.fetch(
+            'HEROKU_TEST_RUN_COMMIT_VERSION',
+            `git rev-parse HEAD`.chomp
+          )
+        )
       end
     end
   end
