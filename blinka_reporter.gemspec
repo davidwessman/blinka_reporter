@@ -1,4 +1,4 @@
-require 'lib/blinka_reporter/version'
+require_relative 'lib/blinka_reporter/version'
 
 Gem::Specification.new do |gem|
   gem.authors = ['David Wessman']
@@ -10,12 +10,13 @@ Gem::Specification.new do |gem|
   gem.summary = 'Format tests for Blinka'
 
   gem.metadata = {
-    "homepage_uri": 'https://github.com/davidwessman/blinka_reporter',
-    "bug_tracker_uri": 'https://github.com/davidwessman/blinka_reporter/issues',
-    "documentation_uri": 'https://github.com/davidwessman/blinka_reporter',
-    "changelog_uri":
+    'homepage_uri' => 'https://github.com/davidwessman/blinka_reporter',
+    'bug_tracker_uri' =>
+      'https://github.com/davidwessman/blinka_reporter/issues',
+    'documentation_uri' => 'https://github.com/davidwessman/blinka_reporter',
+    'changelog_uri' =>
       'https://github.com/davidwessman/blinka_reporter/main/CHANGELOG.md',
-    "source_code_uri": 'https://github.com/davidwessman/blinka_reporter'
+    'source_code_uri' => 'https://github.com/davidwessman/blinka_reporter'
   }
 
   gem.files = %w[

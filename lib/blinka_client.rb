@@ -7,23 +7,13 @@ class BlinkaClient
   include HTTParty
 
   class BlinkaConfig
-    attr_reader(
-      :tag,
-      :commit,
-      :host,
-      :repository,
-      :team_id,
-      :team_secret,
-      :jwt_token
-    )
+    attr_reader(:host, :repository, :team_id, :team_secret, :jwt_token)
 
     def initialize
       @host = ENV.fetch('BLINKA_HOST', DEFAULT_HOST)
       @team_id = ENV.fetch('BLINKA_TEAM_ID', nil)
       @team_secret = ENV.fetch('BLINKA_TEAM_SECRET', nil)
       @repository = ENV.fetch('BLINKA_REPOSITORY', nil)
-      @tag = ENV.fetch('BLINKA_TAG', '')
-      @commit = BlinkaClient.find_commit
 
       if @team_id.nil? || @team_secret.nil? || @repository.nil?
         raise(BlinkaError, <<~EOS)
@@ -75,13 +65,13 @@ class BlinkaClient
     body = {
       report: {
         repository: @config.repository,
-        tag: @config.tag,
-        commit: @config.commit,
+        tag: data['tag'],
+        commit: data['commit'],
         metadata: {
-          total_time: data.dig('total_time'),
-          nbr_tests: data.dig('nbr_tests'),
-          nbr_assertions: data.dig('nbr_assertions'),
-          seed: data.dig('seed')
+          total_time: data['total_time'],
+          nbr_tests: data['nbr_tests'],
+          nbr_assertions: data['nbr_assertions'],
+          seed: data['seed']
         }.compact,
         results: results
       }
@@ -98,9 +88,7 @@ class BlinkaClient
       )
     case response.code
     when 200
-      puts "Reported #{data.dig('nbr_tests')} tests of commit #{
-             @config.commit
-           }!"
+      puts "Reported #{data['nbr_tests']} tests of commit #{data['commit']}!"
     else
       raise(BlinkaError, "Could not report, got response code #{response.code}")
     end
@@ -197,12 +185,5 @@ class BlinkaClient
         "mime_type": presigned_post.dig('fields', 'Content-Type')
       }
     }
-  end
-
-  def self.find_commit
-    ENV.fetch(
-      'BLINKA_COMMIT',
-      ENV.fetch('HEROKU_TEST_RUN_COMMIT_VERSION', `git rev-parse HEAD`.chomp)
-    )
   end
 end
