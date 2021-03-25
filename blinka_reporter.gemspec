@@ -29,7 +29,7 @@ Gem::Specification.new do |gem|
   gem.version = BlinkaReporter::VERSION
 
   gem.add_dependency('httparty', '~> 0.18.1')
-  gem.add_dependency('mimemagic', '~> 0.3.5')
+  gem.add_dependency('mimemagic', '>= 0.3.5', '< 0.5.0')
   gem.add_development_dependency('dotenv', '~> 2.7.6')
   gem.add_development_dependency('minitest', '~> 5.0')
   gem.add_development_dependency('mocha', '~> 1.12')
