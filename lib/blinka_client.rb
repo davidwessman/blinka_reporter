@@ -1,8 +1,12 @@
-require 'mimemagic'
 require 'httparty'
 
 class BlinkaClient
   DEFAULT_HOST = 'https://www.blinka.app'.freeze
+  SUPPORTED_MIME_TYPES = {
+    jpg: 'image/jpeg',
+    jpeg: 'image/jpeg',
+    png: 'image/png'
+  }
 
   include HTTParty
 
@@ -112,7 +116,9 @@ class BlinkaClient
 
     file = File.open(filepath)
     filename = File.basename(filepath)
-    content_type = MimeMagic.by_magic(file).type
+    extension = File.extname(filepath).delete('.').to_sym
+    content_type = SUPPORTED_MIME_TYPES[extension]
+    return if content_type.nil?
 
     presigned_post =
       BlinkaClient.presign_image(filename: filename, content_type: content_type)

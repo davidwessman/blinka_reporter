@@ -107,7 +107,16 @@
       "name": "test_line",
       "path": "test/test_blinka_minitest.rb",
       "result": "pass",
-      "time": 7.000000914558768e-5
+      "time": 7.000000914558768e-5,
+      "image": "test/image.png"
+    },
+    {
+      "kind": "general",
+      "name": "test_line",
+      "path": "test/test_blinka_minitest.rb",
+      "result": "failure",
+      "time": 7.000000914558768e-5,
+      "image": "test/image.exe"
     }
   ]
 }
