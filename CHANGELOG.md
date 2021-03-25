@@ -7,7 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.6] - 2021-03-25
+
+### Changed
+
+- Removes dependency on mimemagic.
+- Only allow images of `jpeg` or `png` format, handles their mime-types by extension.
+
 ## [0.3.5] - 2021-03-11
+
+### Changed
 
 - Move commit and tag to JSON-report instead of setting in the reporting client.
   This allows the report to be made by a general script instead of in the test environment. In preparation of supporting Github Actions without access to secrets.
