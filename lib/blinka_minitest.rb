@@ -44,7 +44,7 @@ class BlinkaMinitest
     elsif @test_result.skipped?
       :skip
     elsif @test_result.failure
-      :failed
+      :fail
     else
       :pass
     end

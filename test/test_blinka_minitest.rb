@@ -107,7 +107,7 @@ class BlinkaMinitestTest < Minitest::Test
       Minitest::Assertion.new('Expected nil to not be nil')
     ]
     blinka = BlinkaMinitest.new(test_result)
-    assert_equal(:failed, blinka.result)
+    assert_equal(:fail, blinka.result)
 
     test_result.failures = [Minitest::Skip.new('Skipped it all')]
     blinka = BlinkaMinitest.new(test_result)
