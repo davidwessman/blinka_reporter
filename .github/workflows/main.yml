@@ -37,3 +37,7 @@ jobs:
           BLINKA_TEAM_SECRET: ${{ secrets.BLINKA_TEAM_SECRET }}
           BLINKA_TAG: ${{ matrix.ruby }}
         run: bundle exec rake test
+
+      - name: Is it main?
+        run: |
+          echo $GITHUB_REF

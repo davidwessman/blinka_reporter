@@ -167,7 +167,6 @@ class BlinkaClient
 
   def self.upload_to_storage(presigned_post:, file:)
     url = URI.parse(presigned_post.fetch('url'))
-    fields = presigned_post.fetch('fields')
 
     body = presigned_post['fields'].merge({ 'file' => file.read })
     response = HTTParty.post(url, multipart: true, body: body)
