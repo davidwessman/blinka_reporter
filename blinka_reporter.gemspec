@@ -28,7 +28,7 @@ Gem::Specification.new do |gem|
   gem.name = 'blinka-reporter'
   gem.version = BlinkaReporter::VERSION
 
-  gem.add_dependency('httparty', '>= 0.18.1', '< 0.20.0')
+  gem.add_dependency('httparty', '>= 0.18.1', '< 0.21.0')
   gem.add_development_dependency('dotenv', '~> 2.7.6')
   gem.add_development_dependency('minitest', '~> 5.0')
   gem.add_development_dependency('mocha', '~> 1.12')
