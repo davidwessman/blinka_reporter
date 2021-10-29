@@ -4,7 +4,7 @@
   "author": "David Wessman <david@wessman.co>",
   "license": "MIT",
   "devDependencies": {
-    "@prettier/plugin-ruby": "^1.6.1",
+    "@prettier/plugin-ruby": "^2.0.0",
     "husky": "^7.0.4",
     "lint-staged": "^11.2.6"
   },
