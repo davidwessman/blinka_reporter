@@ -11,6 +11,7 @@ module Minitest
   def plugin_blinka_options(opts, options); end
 
   module BlinkaPlugin
+    REPORT_PATH = 'blinka_results.json'.freeze
     TAP_COMMENT_PAD = 8
     class Reporter < Minitest::StatisticsReporter
       attr_accessor :tests
@@ -29,7 +30,9 @@ module Minitest
         super
 
         tap_report if ENV['BLINKA_TAP']
-        json_report if ENV['BLINKA_JSON'] || ENV['BLINKA_REPORT']
+        if ENV['BLINKA_JSON'] || ENV['BLINKA_REPORT']
+          json_report(append: !ENV['BLINKA_APPEND'].nil?)
+        end
         BlinkaClient.new.report if ENV['BLINKA_REPORT']
       rescue BlinkaClient::BlinkaError => error
         puts(error)
@@ -37,7 +40,7 @@ module Minitest
 
       private
 
-      def json_report
+      def json_report(append:)
         result = {
           total_time: total_time,
           nbr_tests: count,
@@ -48,12 +51,14 @@ module Minitest
           results:
             tests.map { |test_result| BlinkaMinitest.new(test_result).report }
         }
+        result = append_previous(result) if append
 
-        File.open('blinka_results.json', 'w+') do |file|
+        File.open(REPORT_PATH, 'w+') do |file|
           file.write(JSON.pretty_generate(result))
         end
+
         puts
-        puts('Test results written to `./blinka_results.json`')
+        puts("Test results written to `#{REPORT_PATH}`")
       end
 
       # Based on https://github.com/kern/minitest-reporters/blob/master/lib/minitest/reporters/progress_reporter.rb
@@ -94,6 +99,26 @@ module Minitest
             `git rev-parse HEAD`.chomp
           )
         )
+      end
+
+      private
+
+      def parse_report
+        return unless File.exist?(REPORT_PATH)
+        JSON.parse(File.read(REPORT_PATH))
+      end
+
+      def append_previous(result)
+        previous = parse_report
+        return if previous.nil?
+        return if result[:commit] != previous['commit']
+        return if result[:tag] != previous['tag']
+
+        result[:total_time] += previous['total_time'] || 0
+        result[:nbr_tests] += previous['nbr_tests'] || 0
+        result[:nbr_assertions] += previous['nbr_assertions'] || 0
+        result[:results] += previous['results'] || []
+        result
       end
     end
   end
