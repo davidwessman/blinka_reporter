@@ -1,12 +1,5 @@
 # Blinka reporter
 
-- [What does this gem do?](#what-does-this-gem-do)
-- [How do I install the gem?](#how-do-i-install-the-gem)
-- [Which ruby testing frameworks are supported?](#which-ruby-testing-frameworks-are-supported)
-- [What is Blinka?](#what-is-blinka)
-- [How to send report to Blinka?](#how-to-send-report-to-blinka)
-- [How can I report tests in TAP-format?](#how-can-i-report-tests-in-tap-format)
-
 ## What does this gem do?
 
 It connects to [supported ruby testing frameworks](#which-ruby-testing-frameworks-are-supported) and outputs a report of all passing, failing and skipped tests into a json-format. This format can be used to report test results using the [ruby client](#how-to-send-report-to-blinka) to [Blinka](#what-is-blinka).
@@ -22,7 +15,7 @@ gem install blinka-reporter
 or add to your Gemfile
 
 ```ruby
-gem 'blinka-repoter', '~> 0.3.1'
+gem 'blinka-repoter', '~> 0.5.0'
 ```
 
 ## Which ruby testing frameworks are supported?
@@ -61,6 +54,30 @@ Add a step to your Github Action Workflow after running tests:
 ```
 
 `BLINKA_TAG` is optional and can be used to separate different reports, for example when using a build matrix.
+
+## How to make multiple test runs into one report?
+
+For example when running tests in parallel you might need to run system tests separately.
+By using `BLINKA_JSON` first and the `BLINKA_REPORT` with `BLINKA_APPEND` it will keep the results from both runs:
+
+```yaml
+- name: System tests
+  env:
+    BLINKA_COMMIT: ${{ github.event.pull_request.head.sha || github.sha }}
+    BLINKA_JSON: true
+    BLINKA_REPOSITORY: davidwessman/blinka_reporter
+    BLINKA_TAG: ""
+    PARALLEL_WORKERS: 1
+  run: bundle exec rails test:system
+- name: Tests
+  env:
+    BLINKA_COMMIT: ${{ github.event.pull_request.head.sha || github.sha }}
+    BLINKA_REPORT: true
+    BLINKA_APPEND: true
+    BLINKA_REPOSITORY: davidwessman/blinka_reporter
+    BLINKA_TAG: ""
+  run: bundle exec rails test
+```
 
 ## How can I report tests in TAP-format?
 
