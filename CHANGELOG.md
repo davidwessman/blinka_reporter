@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.1] - 2022-02-01
+
+- Look for screenshots in `Capybara.save_path` to allow different output folders for screenshots.
+  - For example a Rails application can be configured with `Capybara.save_path = ENV.fetch('CAPYBARA_ARTIFACTS', './tmp/capybara')` which can then be overriden in CI.
+
 ## [0.5.0] - 2022-01-21
 
 ### Added

@@ -117,6 +117,17 @@ ok 14 - test/test_blinka_minitest.rb - test_source_location
 
 It should format tests as TAP-format, it can be combined with `BLINKA_JSON=true` or `BLINKA_REPORT=true`.
 
+# Development
+
+## Release new version
+
+1. Update version in [`CHANGELOG.md`](./CHANGELOG.md) and include changes.
+1. Update version in [`lib/blinka_reporter/version.rb`](./lib/blinka_reporter/version.rb).
+1. Create pull request and merge to default branch.
+1. `gem build blinka_reporter.gemspec` (make sure it matches the bumped version).
+1. `gem push blinka-reporter-{version}.gem` (had to use `--otp` because I could not enter it when prompted).
+1. Create a release and tag on Github for history.
+
 # License
 
 `blinka-reporter` is licensed under the MIT license, see [LICENSE](LICENSE) for details.
