@@ -61,7 +61,14 @@ class BlinkaMinitest
   def image
     return unless kind == 'system'
 
-    image_path = "./tmp/screenshots/failures_#{name}.png"
+    image_path =
+      if defined?(Capybara) && Capybara.respond_to?(:save_path) &&
+           Capybara.save_path.present?
+        "#{Capybara.save_path}/failures_#{name}.png"
+      else
+        "./tmp/screenshots/failures_#{name}.png"
+      end
+
     return unless File.exist?(image_path)
 
     image_path
