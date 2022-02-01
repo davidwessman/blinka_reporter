@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.2] - 2022-02-01
+
+- Require MFA for pushing to [Rubygems](https://guides.rubygems.org/mfa-requirement-opt-in/)
+
 ## [0.5.1] - 2022-02-01
 
 - Look for screenshots in `Capybara.save_path` to allow different output folders for screenshots.
@@ -118,7 +122,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Handle inconsistency in source_location of test result in Minitest for different versions.
 
-[unreleased]: https://github.com/davidwessman/blinka_reporter/compare/v0.4.0...HEAD
+[unreleased]: https://github.com/davidwessman/blinka_reporter/compare/v0.5.2...HEAD
+[0.5.2]: https://github.com/davidwessman/blinka_reporter/compare/v0.5.1...v0.5.2
+[0.5.1]: https://github.com/davidwessman/blinka_reporter/compare/v0.5.0...v0.5.1
+[0.5.0]: https://github.com/davidwessman/blinka_reporter/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/davidwessman/blinka_reporter/compare/v0.3.6...v0.4.0
 [0.3.6]: https://github.com/davidwessman/blinka_reporter/compare/v0.3.5...v0.3.6
 [0.3.5]: https://github.com/davidwessman/blinka_reporter/compare/v0.3.4...v0.3.5
