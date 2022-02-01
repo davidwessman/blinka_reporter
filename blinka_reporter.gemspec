@@ -16,7 +16,8 @@ Gem::Specification.new do |gem|
     'documentation_uri' => 'https://github.com/davidwessman/blinka_reporter',
     'changelog_uri' =>
       'https://github.com/davidwessman/blinka_reporter/main/CHANGELOG.md',
-    'source_code_uri' => 'https://github.com/davidwessman/blinka_reporter'
+    'source_code_uri' => 'https://github.com/davidwessman/blinka_reporter',
+    'rubygems_mfa_required' => 'true'
   }
 
   gem.files = %w[
@@ -28,7 +29,7 @@ Gem::Specification.new do |gem|
   gem.name = 'blinka-reporter'
   gem.version = BlinkaReporter::VERSION
 
-  gem.add_dependency('httparty', '>= 0.18.1', '< 0.21.0')
+  gem.add_dependency('httparty', '~> 0.18')
   gem.add_development_dependency('dotenv', '~> 2.7.6')
   gem.add_development_dependency('minitest', '~> 5.0')
   gem.add_development_dependency('mocha', '~> 1.12')
