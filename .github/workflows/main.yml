@@ -33,9 +33,11 @@ jobs:
         run: bundle exec rake test
 
       - name: Build and install gem
+        if: always()
         run: gem build blinka_reporter.gemspec && gem install blinka-reporter-*.gem
 
       - name: Report to Blinka
+        if: always()
         env:
           BLINKA_REPOSITORY: davidwessman/blinka_reporter
           BLINKA_TEAM_ID: ${{ secrets.BLINKA_TEAM_ID }}
