@@ -46,7 +46,7 @@ module BlinkaReporter
     end
 
     def self.parse_xml(path:)
-      data = Ox.load_file(path, { symbolize_keys: true })
+      data = Ox.load_file(path, { symbolize_keys: true, skip: :skip_none })
       test_suite = data.root
       unless test_suite.name == 'testsuite'
         raise("Root element is not <testsuite>, instead #{test_suite.name}")
@@ -87,7 +87,7 @@ module BlinkaReporter
             test_case.nodes.select { |node| node.name == 'failure' }.first
           if failure
             result[:result] = 'fail'
-            result[:backtrace] = failure.text
+            result[:backtrace] = failure.text.split('\n')
             result[:message] = failure.attributes[:message]
           end
         else
