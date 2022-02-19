@@ -20,16 +20,19 @@ Gem::Specification.new do |gem|
     'rubygems_mfa_required' => 'true'
   }
 
-  gem.files = %w[
-    lib/blinka_minitest.rb
-    lib/minitest/blinka_plugin.rb
-    lib/blinka_client.rb
-    lib/blinka_reporter/version.rb
-  ]
+  gem.files =
+    Dir.chdir(File.expand_path('..', __FILE__)) do
+      `git ls-files -z`
+        .split("\x0")
+        .reject { |f| f.match(%r{^(test|spec|features)/}) }
+    end
   gem.name = 'blinka-reporter'
   gem.version = BlinkaReporter::VERSION
+  gem.executables = ['blinka_reporter']
+  gem.require_path = ['lib']
 
   gem.add_dependency('httparty', '~> 0.18')
+  gem.add_dependency('ox', '~> 2')
   gem.add_development_dependency('dotenv', '~> 2.7.6')
   gem.add_development_dependency('minitest', '~> 5.0')
   gem.add_development_dependency('mocha', '~> 1.12')

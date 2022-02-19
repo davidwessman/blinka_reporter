@@ -1,15 +1,15 @@
 require 'minitest/autorun'
 require 'mocha/minitest'
-require 'blinka_minitest'
+require 'blinka_reporter/minitest_adapter'
 
-class BlinkaMinitestTest < Minitest::Test
+class MinitestAdapterTest < Minitest::Test
   def test_source_location
     test_result = Minitest::Result.new('test_source_location')
     test_result.source_location = [
       "#{__dir__}/model/test_blinka_minitest.rb",
       10
     ]
-    blinka = BlinkaMinitest.new(test_result)
+    blinka = BlinkaReporter::MinitestAdapter.new(test_result)
 
     assert_equal('test/model/test_blinka_minitest.rb', blinka.path)
   end
@@ -20,7 +20,7 @@ class BlinkaMinitestTest < Minitest::Test
       "#{__dir__}/model/test_blinka_minitest.rb",
       10
     ]
-    blinka = BlinkaMinitest.new(test_result)
+    blinka = BlinkaReporter::MinitestAdapter.new(test_result)
 
     assert_equal('model', blinka.kind)
   end
@@ -28,7 +28,7 @@ class BlinkaMinitestTest < Minitest::Test
   def test_kind_no_folder
     test_result = Minitest::Result.new('test_kind_no_folder')
     test_result.source_location = ["#{__dir__}/test_blinka_minitest.rb", 10]
-    blinka = BlinkaMinitest.new(test_result)
+    blinka = BlinkaReporter::MinitestAdapter.new(test_result)
 
     assert_equal('general', blinka.kind)
   end
@@ -38,7 +38,7 @@ class BlinkaMinitestTest < Minitest::Test
     test_result.failures = [
       Minitest::Assertion.new('Expected nil to not be nil')
     ]
-    blinka = BlinkaMinitest.new(test_result)
+    blinka = BlinkaReporter::MinitestAdapter.new(test_result)
 
     assert_equal(
       'Minitest::Assertion: Expected nil to not be nil',
@@ -48,7 +48,7 @@ class BlinkaMinitestTest < Minitest::Test
 
   def test_message_no_failure
     test_result = Minitest::Result.new('test')
-    blinka = BlinkaMinitest.new(test_result)
+    blinka = BlinkaReporter::MinitestAdapter.new(test_result)
 
     assert_nil(blinka.message)
   end
@@ -84,7 +84,7 @@ class BlinkaMinitestTest < Minitest::Test
       Minitest::Assertion.new('Expected nil to not be nil')
     ]
     test_result.failure.set_backtrace(backtrace)
-    blinka = BlinkaMinitest.new(test_result)
+    blinka = BlinkaReporter::MinitestAdapter.new(test_result)
 
     assert_equal(
       ["test/test_blinka_minitest.rb:54:in `test_backtrace'"],
@@ -94,29 +94,29 @@ class BlinkaMinitestTest < Minitest::Test
 
   def test_backtrace_no_failure
     test_result = Minitest::Result.new('test')
-    blinka = BlinkaMinitest.new(test_result)
+    blinka = BlinkaReporter::MinitestAdapter.new(test_result)
     assert_nil(blinka.backtrace)
   end
 
   def test_result
     test_result = Minitest::Result.new('test')
-    blinka = BlinkaMinitest.new(test_result)
+    blinka = BlinkaReporter::MinitestAdapter.new(test_result)
     assert_equal(:pass, blinka.result)
 
     test_result.failures = [
       Minitest::Assertion.new('Expected nil to not be nil')
     ]
-    blinka = BlinkaMinitest.new(test_result)
+    blinka = BlinkaReporter::MinitestAdapter.new(test_result)
     assert_equal(:fail, blinka.result)
 
     test_result.failures = [Minitest::Skip.new('Skipped it all')]
-    blinka = BlinkaMinitest.new(test_result)
+    blinka = BlinkaReporter::MinitestAdapter.new(test_result)
     assert_equal(:skip, blinka.result)
 
     test_result.failures = [
       Minitest::UnexpectedError.new('This should not have happened')
     ]
-    blinka = BlinkaMinitest.new(test_result)
+    blinka = BlinkaReporter::MinitestAdapter.new(test_result)
     assert_equal(:error, blinka.result)
   end
 
@@ -127,7 +127,7 @@ class BlinkaMinitestTest < Minitest::Test
       10
     ]
     File.expects(:exist?).returns(true)
-    blinka = BlinkaMinitest.new(test_result)
+    blinka = BlinkaReporter::MinitestAdapter.new(test_result)
 
     refute_nil(blinka.image)
   end
@@ -139,7 +139,7 @@ class BlinkaMinitestTest < Minitest::Test
       10
     ]
     File.expects(:exist?).returns(false)
-    blinka = BlinkaMinitest.new(test_result)
+    blinka = BlinkaReporter::MinitestAdapter.new(test_result)
 
     assert_nil(blinka.image)
   end
@@ -157,7 +157,7 @@ class BlinkaMinitestTest < Minitest::Test
       "#{__dir__}/model/test_blinka_minitest.rb",
       10
     ]
-    blinka = BlinkaMinitest.new(test_result)
+    blinka = BlinkaReporter::MinitestAdapter.new(test_result)
     assert_equal(
       %i[backtrace message line kind name path result time].sort,
       blinka.report.keys.sort
@@ -178,7 +178,7 @@ class BlinkaMinitestTest < Minitest::Test
       10
     ]
     File.expects(:exist?).at_least_once.returns(true)
-    blinka = BlinkaMinitest.new(test_result)
+    blinka = BlinkaReporter::MinitestAdapter.new(test_result)
     assert_equal(
       %i[backtrace message line kind image name path result time].sort,
       blinka.report.keys.sort

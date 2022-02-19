@@ -21,6 +21,7 @@ gem 'blinka-repoter', '~> 0.5.0'
 ## Which ruby testing frameworks are supported?
 
 - Minitest
+- Rspec
 
 > Please reach out for other frameworks or create a reporter yourself.
 
@@ -28,74 +29,100 @@ gem 'blinka-repoter', '~> 0.5.0'
 
 Blinka is a web service developed by [@davidwessman](https://github.com/davidwessman) to store test results from CI and report interesting results back to Github, right in the pull request.
 
+## How to generate test report in the right format?
+
+### Minitest
+
+```sh
+BLINKA_JSON=true bundle exec rails test
+```
+
+Output as `./blinka_results.json`
+
+### Rspec
+
+Make sure [rspec_junit_formatter](https://github.com/sj26/rspec_junit_formatter) is installed.
+
+```sh
+bundle exec rspec --formatter RspecJunitFormatter --out ./rspec.xml
+```
+
 ## How to send report to Blinka?
 
-After the tests have run with environment variable `BLINKA_JSON=true` and the `blinka_report.json` file is populated, run in ruby:
-
-```ruby
-require 'blinka_client'
-BlinkaClient.new.report
-```
+1. Output your test results as described [above](#how-to-generate-test-report-in-the-right-format).
+1. Configure `BLINKA_TEAM_ID`, `BLINKA_TEAM_SECRET`, `BLINKA_REPOSITORY`.
+1. `bundle exec blinka-reporter --path {./blinka_results.json,./rspec.xml} --blinka`
 
 ## How can I send report in Github Action?
 
 Add a step to your Github Action Workflow after running tests:
 
 ```yaml
-- name: Run tests and report to Blinka
+- name: Minitest
+  env:
+    BLINKA_JSON: true
+  run: bundle exec rake test
+
+- name: Report minitest to Blinka
   env:
     BLINKA_COMMIT: ${{ github.event.pull_request.head.sha || github.sha }}
-    BLINKA_REPORT: true
     BLINKA_REPOSITORY: davidwessman/blinka_reporter
     BLINKA_TAG: ""
     BLINKA_TEAM_ID: ${{ secrets.BLINKA_TEAM_ID }}
     BLINKA_TEAM_SECRET: ${{ secrets.BLINKA_TEAM_SECRET }}
-  run: bundle exec rake test
+  run: bundle exec blinka-reporter --path ./blinka_results.json --blinka
+
+- name: Report minitest to Blinka
+  env:
+    BLINKA_COMMIT: ${{ github.event.pull_request.head.sha || github.sha }}
+    BLINKA_REPOSITORY: davidwessman/blinka_reporter
+    BLINKA_TAG: ""
+    BLINKA_TEAM_ID: ${{ secrets.BLINKA_TEAM_ID }}
+    BLINKA_TEAM_SECRET: ${{ secrets.BLINKA_TEAM_SECRET }}
+  run: bundle exec blinka-reporter --path ./rspec.xml --blinka
 ```
 
 `BLINKA_TAG` is optional and can be used to separate different reports, for example when using a build matrix.
 
 ## How to make multiple test runs into one report?
 
+**Only reported for Minitest, open an issue for Rspec-support**
+
 For example when running tests in parallel you might need to run system tests separately.
-By using `BLINKA_JSON` first and the `BLINKA_REPORT` with `BLINKA_APPEND` it will keep the results from both runs:
+By first using `BLINKA_JSON` it will create a clean file, `BLINKA_APPEND` will append the results.
 
 ```yaml
 - name: System tests
   env:
-    BLINKA_COMMIT: ${{ github.event.pull_request.head.sha || github.sha }}
     BLINKA_JSON: true
-    BLINKA_REPOSITORY: davidwessman/blinka_reporter
-    BLINKA_TAG: ""
     PARALLEL_WORKERS: 1
   run: bundle exec rails test:system
+
 - name: Tests
   env:
-    BLINKA_COMMIT: ${{ github.event.pull_request.head.sha || github.sha }}
-    BLINKA_REPORT: true
+    BLINKA_JSON: true
     BLINKA_APPEND: true
+  run: bundle exec rails test
+
+- name: Report to Blinka
+  env:
+    BLINKA_COMMIT: ${{ github.event.pull_request.head.sha || github.sha }}
     BLINKA_REPOSITORY: davidwessman/blinka_reporter
     BLINKA_TAG: ""
-  run: bundle exec rails test
+    BLINKA_TEAM_ID: ${{ secrets.BLINKA_TEAM_ID }}
+    BLINKA_TEAM_SECRET: ${{ secrets.BLINKA_TEAM_SECRET }}
+  run: bundle exec blinka-reporter --path ./blinka_results.json --blinka
 ```
 
 ## How can I report tests in TAP-format?
 
 TAP-format ([Test anything protocol](https://testanything.org)) is used to parse tests results on for example Heroku CI.
 
-Set `BLINKA_TAP` environment variable to any value to get a report:
+Generate your test results like [above](#how-to-generate-test-report-in-the-right-format),
+replace `<path>` with your json or xml file.
 
 ```sh
-$ BLINKA_TAP=true rake
-Run options: --seed 33934
-
-# Running:
-
-..............
-
-Finished in 0.002069s, 6766.5538 runs/s, 9666.5054 assertions/s.
-
-14 runs, 20 assertions, 0 failures, 0 errors, 0 skips
+bundle exec blinka-reporter --tap --path <path>
 
 TAP version 13
 1..14
@@ -115,7 +142,7 @@ ok 13 - test/test_blinka_minitest.rb - test_message_no_failure
 ok 14 - test/test_blinka_minitest.rb - test_source_location
 ```
 
-It should format tests as TAP-format, it can be combined with `BLINKA_JSON=true` or `BLINKA_REPORT=true`.
+It should format tests as TAP-format.
 
 # Development
 

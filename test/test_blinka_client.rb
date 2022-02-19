@@ -2,34 +2,54 @@ require 'minitest/autorun'
 require 'mocha/minitest'
 require 'webmock/minitest'
 
-require 'blinka_client'
+require 'blinka_reporter/client'
+require 'blinka_reporter/config'
 
-class BlinkaClientTest < Minitest::Test
+class BlinkaReporterMinitestAdapterTest < Minitest::Test
   S3_URL = 'https://blinka.s3storage.com'
   def setup
     # We must allow webmock to stay enabled, even if we need to disable it in the client.
     ENV['BLINKA_ALLOW_WEBMOCK_DISABLE'] = 'false'
     WebMock.disable_net_connect!
+    @config = BlinkaReporter::Config.new
+    stub_client
+    BlinkaReporter::Config.any_instance.expects(:validate_blinka).returns(true)
   end
 
   def teardown
     ENV['BLINKA_ALLOW_WEBMOCK_DISABLE'] = 'true'
   end
 
-  def test_report_class_method
-    stub_client
-    BlinkaClient.report(filepath: 'test/example_results.json')
+  def test_report_class_method_json
+    BlinkaReporter::Client.report(
+      path: 'test/example_results.json',
+      tap: true,
+      blinka: true
+    )
+  end
+
+  def test_report_class_method_json2
+    BlinkaReporter::Client.report(
+      path: 'test/blinka_results.json',
+      tap: true,
+      blinka: true
+    )
+  end
+
+  def test_report_class_method_xml
+    BlinkaReporter::Client.report(
+      path: 'test/rspec.xml',
+      blinka: true,
+      tap: true
+    )
   end
 
   def stub_client
     WebMock
-      .stub_request(
-        :post,
-        "#{BlinkaClient::DEFAULT_HOST}/api/v1/authentication"
-      )
+      .stub_request(:post, "#{@config.host}/api/v1/authentication")
       .to_return(body: { auth_token: 'auth-token' }.to_json)
     WebMock
-      .stub_request(:get, "#{BlinkaClient::DEFAULT_HOST}/api/v1/presign")
+      .stub_request(:get, "#{@config.host}/api/v1/presign")
       .to_return(
         body: {
           fields: {
@@ -49,6 +69,6 @@ class BlinkaClientTest < Minitest::Test
         }.to_json
       )
     WebMock.stub_request(:post, S3_URL).to_return(status: 204)
-    WebMock.stub_request(:post, "#{BlinkaClient::DEFAULT_HOST}/api/v1/report")
+    WebMock.stub_request(:post, "#{@config.host}/api/v1/report")
   end
 end
