@@ -1,0 +1,627 @@
+{
+  "total_time": 2.781437999998161,
+  "nbr_tests": 75,
+  "nbr_assertions": 197,
+  "commit": "55e0cfd29a5a7b9863b17e3853d364a97e5a3a98",
+  "tag": "",
+  "seed": 56490,
+  "results": [
+    {
+      "line": 5,
+      "kind": "models",
+      "name": "test_#confirm_email!",
+      "path": "test/models/user_test.rb",
+      "result": "pass",
+      "time": 0.13117199999760487
+    },
+    {
+      "line": 5,
+      "kind": "lib",
+      "name": "test_encode_payload",
+      "path": "test/lib/jwt_helper_test.rb",
+      "result": "pass",
+      "time": 0.005313999998179497
+    },
+    {
+      "line": 16,
+      "kind": "lib",
+      "name": "test_encode_payload_-_expired",
+      "path": "test/lib/jwt_helper_test.rb",
+      "result": "pass",
+      "time": 0.005499000002600951
+    },
+    {
+      "line": 5,
+      "kind": "models",
+      "name": "test_#error_message",
+      "path": "test/models/test_run_test.rb",
+      "result": "pass",
+      "time": 0.35889099999985774
+    },
+    {
+      "line": 11,
+      "kind": "models",
+      "name": "test_#backtrace",
+      "path": "test/models/test_run_test.rb",
+      "result": "pass",
+      "time": 0.3648239999965881
+    },
+    {
+      "line": 5,
+      "kind": "workers",
+      "name": "test_#perform",
+      "path": "test/workers/schedule_test_case_report_worker_test.rb",
+      "result": "pass",
+      "time": 0.4101909999990312
+    },
+    {
+      "line": 21,
+      "kind": "controllers",
+      "name": "test_DELETE_#destroy_-_require_admin",
+      "path": "test/controllers/teams/memberships_controller_test.rb",
+      "result": "pass",
+      "time": 0.47517299999890383
+    },
+    {
+      "line": 12,
+      "kind": "controllers",
+      "name": "test_POST_#create_-_require_admin",
+      "path": "test/controllers/teams/access_tokens_controller_test.rb",
+      "result": "pass",
+      "time": 0.4696430000003602
+    },
+    {
+      "line": 12,
+      "kind": "controllers",
+      "name": "test_DELETE_#destroy_-_delete_normal_membership",
+      "path": "test/controllers/teams/memberships_controller_test.rb",
+      "result": "pass",
+      "time": 0.46020299999872805
+    },
+    {
+      "line": 34,
+      "kind": "controllers",
+      "name": "test_DELETE_#destroy",
+      "path": "test/controllers/teams/access_tokens_controller_test.rb",
+      "result": "pass",
+      "time": 0.4759630000007746
+    },
+    {
+      "line": 31,
+      "kind": "controllers",
+      "name": "test_DELETE_#destroy_-_cannot_delete_admin_membership",
+      "path": "test/controllers/teams/memberships_controller_test.rb",
+      "result": "pass",
+      "time": 0.4676710000021558
+    },
+    {
+      "line": 5,
+      "kind": "models",
+      "name": "test_assure_secret_is_set_on_new_tokens",
+      "path": "test/models/team_access_token_test.rb",
+      "result": "pass",
+      "time": 0.018630999999004416
+    },
+    {
+      "line": 15,
+      "kind": "controllers",
+      "name": "test_PATCH_#update_-_name",
+      "path": "test/controllers/settings_controller_test.rb",
+      "result": "pass",
+      "time": 0.03715100000044913
+    },
+    {
+      "line": 17,
+      "kind": "controllers",
+      "name": "test_GET_#show_-_connected",
+      "path": "test/controllers/accounts/github_controller_test.rb",
+      "result": "pass",
+      "time": 0.3113969999976689
+    },
+    {
+      "line": 24,
+      "kind": "controllers",
+      "name": "test_POST_#create_-_successful",
+      "path": "test/controllers/teams/access_tokens_controller_test.rb",
+      "result": "pass",
+      "time": 0.569484999999986
+    },
+    {
+      "line": 11,
+      "kind": "models",
+      "name": "test_do_not_overwrite_secret_for_saved_objects",
+      "path": "test/models/team_access_token_test.rb",
+      "result": "pass",
+      "time": 0.014451999999437248
+    },
+    {
+      "line": 17,
+      "kind": "controllers",
+      "name": "test_GET_#show_-_non_existent_token",
+      "path": "test/controllers/users/confirmations_controller_test.rb",
+      "result": "pass",
+      "time": 0.015543000001343898
+    },
+    {
+      "line": 7,
+      "kind": "controllers",
+      "name": "test_PATCH_#update_-_trigger_new_verification_job",
+      "path": "test/controllers/teams/repositories/verifications_controller_test.rb",
+      "result": "pass",
+      "time": 0.10015699999712524
+    },
+    {
+      "line": 5,
+      "kind": "lib",
+      "name": "test_creates_jwt_for_team_with_access_token",
+      "path": "test/lib/authenticate_team_test.rb",
+      "result": "pass",
+      "time": 0.04003699999884702
+    },
+    {
+      "line": 11,
+      "kind": "controllers",
+      "name": "test_should_not_accept_GET_requests_to_OmniAuth_endpoint",
+      "path": "test/controllers/oauth_csrf_test.rb",
+      "result": "pass",
+      "time": 0.00645500000246102
+    },
+    {
+      "line": 5,
+      "kind": "mailers",
+      "name": "test_new_registration",
+      "path": "test/mailers/administration_mailer_test.rb",
+      "result": "pass",
+      "time": 0.2341359999991255
+    },
+    {
+      "line": 11,
+      "kind": "controllers",
+      "name": "test_GET_#show_-_not_connected",
+      "path": "test/controllers/accounts/github_controller_test.rb",
+      "result": "pass",
+      "time": 0.24716300000000047
+    },
+    {
+      "line": 6,
+      "kind": "controllers",
+      "name": "test_GET_#show_-_successful",
+      "path": "test/controllers/users/confirmations_controller_test.rb",
+      "result": "pass",
+      "time": 0.034604999997100094
+    },
+    {
+      "line": 15,
+      "kind": "controllers",
+      "name": "test_should_not_accept_POST_requests_with_invalid_CSRF_tokens_to_OmniAuth_endpoint",
+      "path": "test/controllers/oauth_csrf_test.rb",
+      "result": "pass",
+      "time": 0.0120150000002468
+    },
+    {
+      "line": 27,
+      "kind": "controllers",
+      "name": "test_authenticate_team_fails",
+      "path": "test/controllers/api/v1/authentications_controller_test.rb",
+      "result": "pass",
+      "time": 0.027169000000867527
+    },
+    {
+      "line": 16,
+      "kind": "lib",
+      "name": "test_authorize_team_-_fails_if_failed",
+      "path": "test/lib/authorize_api_request_test.rb",
+      "result": "pass",
+      "time": 0.004222999999910826
+    },
+    {
+      "line": 22,
+      "kind": "lib",
+      "name": "test_authorize_team_-_fails_if_nil",
+      "path": "test/lib/authorize_api_request_test.rb",
+      "result": "pass",
+      "time": 0.00958600000012666
+    },
+    {
+      "line": 63,
+      "kind": "controllers",
+      "name": "test_POST_#create_-_new_report_new_repository",
+      "path": "test/controllers/api/v1/reports_controller_test.rb",
+      "result": "pass",
+      "time": 0.17824400000245078
+    },
+    {
+      "line": 10,
+      "kind": "controllers",
+      "name": "test_GET_#show",
+      "path": "test/controllers/settings_controller_test.rb",
+      "result": "pass",
+      "time": 0.27322999999887543
+    },
+    {
+      "line": 5,
+      "kind": "lib",
+      "name": "test_authorize_team",
+      "path": "test/lib/authorize_api_request_test.rb",
+      "result": "pass",
+      "time": 0.035797999997157604
+    },
+    {
+      "line": 7,
+      "kind": "controllers",
+      "name": "test_authenticate_team_and_get_access_token",
+      "path": "test/controllers/api/v1/authentications_controller_test.rb",
+      "result": "pass",
+      "time": 0.05603799999880721
+    },
+    {
+      "line": 5,
+      "kind": "controllers",
+      "name": "test_POST_#create",
+      "path": "test/controllers/users_controller_test.rb",
+      "result": "pass",
+      "time": 0.7257919999974547
+    },
+    {
+      "line": 7,
+      "kind": "workers",
+      "name": "test_#perform_-_do_nothing_if_already_verified",
+      "path": "test/workers/verify_run_worker_test.rb",
+      "result": "pass",
+      "time": 0.03874700000233133
+    },
+    {
+      "line": 92,
+      "kind": "workers",
+      "name": "test_#perform_-_destroy_if_Octokit::NotFound_and_old",
+      "path": "test/workers/verify_run_worker_test.rb",
+      "result": "pass",
+      "time": 0.04353199999968638
+    },
+    {
+      "line": 5,
+      "kind": "controllers",
+      "name": "test_GET_#show",
+      "path": "test/controllers/accounts_controller_test.rb",
+      "result": "pass",
+      "time": 0.12423699999999371
+    },
+    {
+      "line": 53,
+      "kind": "workers",
+      "name": "test_#perform_-_reschedule_if_Octokit::NotFound",
+      "path": "test/workers/verify_run_worker_test.rb",
+      "result": "pass",
+      "time": 0.034224999999423744
+    },
+    {
+      "line": 75,
+      "kind": "workers",
+      "name": "test_#perform_-_destroy_if_not_included_and_old",
+      "path": "test/workers/verify_run_worker_test.rb",
+      "result": "pass",
+      "time": 0.0849659999985306
+    },
+    {
+      "line": 15,
+      "kind": "controllers",
+      "name": "test_POST_#create_-_new_report_existing_repository",
+      "path": "test/controllers/api/v1/reports_controller_test.rb",
+      "result": "pass",
+      "time": 0.30478299999958836
+    },
+    {
+      "line": 34,
+      "kind": "workers",
+      "name": "test_#perform_-_reschedule_if_not_included",
+      "path": "test/workers/verify_run_worker_test.rb",
+      "result": "pass",
+      "time": 0.08638799999971525
+    },
+    {
+      "line": 43,
+      "kind": "workers",
+      "name": "test_#perform_-_no_pr_present",
+      "path": "test/workers/report_worker_test.rb",
+      "result": "pass",
+      "time": 0.11048400000072434
+    },
+    {
+      "line": 150,
+      "kind": "services",
+      "name": "test_#github_url_for_file_-_without_line",
+      "path": "test/services/run_reporter_test.rb",
+      "result": "pass",
+      "time": 0.0017579999985173345
+    },
+    {
+      "backtrace": [
+        "app/views/presentation/index.html.erb:11",
+        "app/controllers/application_controller.rb:13:in `n_plus_one_detection'",
+        "test/controllers/presentation_controller_test.rb:6:in `block in <class:PresentationControllerTest>'"
+      ],
+      "message": "ActionView::Template::Error: undefined method `counts' for TestRun:Class\nDid you mean?  count",
+      "line": 5,
+      "kind": "controllers",
+      "name": "test_GET_#index_-_success",
+      "path": "test/controllers/presentation_controller_test.rb",
+      "result": "error",
+      "time": 0.035450999999739
+    },
+    {
+      "line": 10,
+      "kind": "controllers",
+      "name": "test_GET_#heroku_-_success",
+      "path": "test/controllers/presentation_controller_test.rb",
+      "result": "pass",
+      "time": 0.042204000001220265
+    },
+    {
+      "line": 17,
+      "kind": "workers",
+      "name": "test_#perform_-_set_verified_if_included_in_default_branch",
+      "path": "test/workers/verify_run_worker_test.rb",
+      "result": "pass",
+      "time": 0.16070200000103796
+    },
+    {
+      "line": 5,
+      "kind": "mailers",
+      "name": "test_registration_confirmation",
+      "path": "test/mailers/user_mailer_test.rb",
+      "result": "pass",
+      "time": 0.09994600000209175
+    },
+    {
+      "line": 20,
+      "kind": "services",
+      "name": "test_#status_text_-_only_include_results",
+      "path": "test/services/run_reporter_test.rb",
+      "result": "pass",
+      "time": 0.031057999996846775
+    },
+    {
+      "line": 85,
+      "kind": "services",
+      "name": "test_#test_run_comment",
+      "path": "test/services/run_reporter_test.rb",
+      "result": "pass",
+      "time": 0.019327999998495216
+    },
+    {
+      "line": 14,
+      "kind": "controllers",
+      "name": "test_GET_#show",
+      "path": "test/controllers/teams/repositories/test_cases_controller_test.rb",
+      "result": "pass",
+      "time": 0.41214100000070175
+    },
+    {
+      "line": 44,
+      "kind": "services",
+      "name": "test_#comment_for_empty_run_-_with_tag",
+      "path": "test/services/run_reporter_test.rb",
+      "result": "pass",
+      "time": 0.06132900000011432
+    },
+    {
+      "line": 37,
+      "kind": "services",
+      "name": "test_#comment_for_empty_run",
+      "path": "test/services/run_reporter_test.rb",
+      "result": "pass",
+      "time": 0.06315899999754038
+    },
+    {
+      "line": 5,
+      "kind": "workers",
+      "name": "test_#perform_-_correct_merge_commit_sha",
+      "path": "test/workers/report_worker_test.rb",
+      "result": "pass",
+      "time": 0.283051999998861
+    },
+    {
+      "line": 24,
+      "kind": "workers",
+      "name": "test_#perform_-_correct_head.sha",
+      "path": "test/workers/report_worker_test.rb",
+      "result": "pass",
+      "time": 0.2862310000018624
+    },
+    {
+      "line": 5,
+      "kind": "services",
+      "name": "test_#status_text",
+      "path": "test/services/run_reporter_test.rb",
+      "result": "pass",
+      "time": 0.068477000000712
+    },
+    {
+      "line": 38,
+      "kind": "workers",
+      "name": "test_#perform_-_creates_one_per_month",
+      "path": "test/workers/test_case_report_worker_test.rb",
+      "result": "pass",
+      "time": 0.2004449999985809
+    },
+    {
+      "line": 138,
+      "kind": "services",
+      "name": "test_#github_url_for_file",
+      "path": "test/services/run_reporter_test.rb",
+      "result": "pass",
+      "time": 0.0038809999969089404
+    },
+    {
+      "line": 30,
+      "kind": "services",
+      "name": "test_#status_text_-_if_empty",
+      "path": "test/services/run_reporter_test.rb",
+      "result": "pass",
+      "time": 0.02151899999807938
+    },
+    {
+      "line": 5,
+      "kind": "models",
+      "name": "test_#stability",
+      "path": "test/models/test_case_report_test.rb",
+      "result": "pass",
+      "time": 0.05684800000017276
+    },
+    {
+      "line": 70,
+      "kind": "services",
+      "name": "test_#comment_-_more_than_50000_characters",
+      "path": "test/services/run_reporter_test.rb",
+      "result": "pass",
+      "time": 0.212985000001936
+    },
+    {
+      "line": 12,
+      "kind": "workers",
+      "name": "test_#perform_-_stability_when_only_skip",
+      "path": "test/workers/test_case_report_worker_test.rb",
+      "result": "pass",
+      "time": 0.3615119999994931
+    },
+    {
+      "line": 30,
+      "kind": "controllers",
+      "name": "test_GET_#new_-_only_viewable_by_admin",
+      "path": "test/controllers/teams/repositories_controller_test.rb",
+      "result": "pass",
+      "time": 0.08930899999904796
+    },
+    {
+      "line": 19,
+      "kind": "controllers",
+      "name": "test_GET_#show_-_not_viewable_if_not_admin",
+      "path": "test/controllers/teams/repositories_controller_test.rb",
+      "result": "pass",
+      "time": 0.16566099999909056
+    },
+    {
+      "line": 48,
+      "kind": "controllers",
+      "name": "test_POST_#create_-_invalid",
+      "path": "test/controllers/teams/repositories_controller_test.rb",
+      "result": "pass",
+      "time": 0.1733970000022964
+    },
+    {
+      "line": 25,
+      "kind": "controllers",
+      "name": "test_GET_#new",
+      "path": "test/controllers/teams/repositories_controller_test.rb",
+      "result": "pass",
+      "time": 0.18160600000192062
+    },
+    {
+      "line": 75,
+      "kind": "controllers",
+      "name": "test_PATCH_#update_-_errors",
+      "path": "test/controllers/teams/repositories_controller_test.rb",
+      "result": "pass",
+      "time": 0.23670700000002398
+    },
+    {
+      "line": 5,
+      "kind": "models",
+      "name": "test_update_github_status_at_when_github_status_is_changed",
+      "path": "test/models/repository_test.rb",
+      "result": "pass",
+      "time": 0.03245500000048196
+    },
+    {
+      "line": 51,
+      "kind": "services",
+      "name": "test_#comment_for_run_with_multiple_failures",
+      "path": "test/services/run_reporter_test.rb",
+      "result": "pass",
+      "time": 0.2863489999981539
+    },
+    {
+      "line": 58,
+      "kind": "controllers",
+      "name": "test_DELETE_#destroy",
+      "path": "test/controllers/teams/repositories_controller_test.rb",
+      "result": "pass",
+      "time": 0.13167500000054133
+    },
+    {
+      "line": 14,
+      "kind": "controllers",
+      "name": "test_GET_#show",
+      "path": "test/controllers/teams/repositories_controller_test.rb",
+      "result": "pass",
+      "time": 0.31611100000009174
+    },
+    {
+      "line": 66,
+      "kind": "controllers",
+      "name": "test_PATCH_#update",
+      "path": "test/controllers/teams/repositories_controller_test.rb",
+      "result": "pass",
+      "time": 0.321855999998661
+    },
+    {
+      "line": 36,
+      "kind": "controllers",
+      "name": "test_POST_#create",
+      "path": "test/controllers/teams/repositories_controller_test.rb",
+      "result": "pass",
+      "time": 0.17819900000176858
+    },
+    {
+      "line": 5,
+      "kind": "controllers",
+      "name": "test_GET_#show",
+      "path": "test/controllers/teams_controller_test.rb",
+      "result": "pass",
+      "time": 0.1408129999981611
+    },
+    {
+      "line": 7,
+      "kind": "integration",
+      "name": "test_authenticate_team_and_submit_report",
+      "path": "test/integration/api/v1/reporting_test.rb",
+      "result": "pass",
+      "time": 0.2587290000010398
+    },
+    {
+      "line": 13,
+      "kind": "controllers",
+      "name": "test_GET_#show",
+      "path": "test/controllers/teams/runs_controller_test.rb",
+      "result": "pass",
+      "time": 0.29574199999842676
+    },
+    {
+      "backtrace": [
+        "app/views/presentation/index.html.erb:11",
+        "app/controllers/application_controller.rb:13:in `n_plus_one_detection'"
+      ],
+      "message": "ActionView::Template::Error: undefined method `counts' for TestRun:Class\nDid you mean?  count",
+      "line": 5,
+      "image": "./tmp/capybara/failures_test_visit_landing_page.png",
+      "kind": "system",
+      "name": "test_visit_landing_page",
+      "path": "test/system/landing_test.rb",
+      "result": "error",
+      "time": 1.095502000000124
+    },
+    {
+      "backtrace": [
+        "test/system/account_test.rb:16:in `block in <class:AccountsTest>'"
+      ],
+      "message": "Minitest::Assertion: Expected \"true\" to be nil or false",
+      "line": 5,
+      "image": "./tmp/capybara/failures_test_sign_in_and_visit_account.png",
+      "kind": "system",
+      "name": "test_sign_in_and_visit_account",
+      "path": "test/system/account_test.rb",
+      "result": "fail",
+      "time": 2.2642530000011902
+    }
+  ]
+}

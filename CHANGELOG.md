@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Adds support for Rspec.
+- Remove support for `BLINKA_REPORT`, instead use `bundle exec blinka-reporter --blinka` for reporting.
+- Remove `BLINKA_TAP` and replace with `bundle exec blinka-reporter --tap`.
+- Restructure gem internals.
+
 ## [0.5.2] - 2022-02-01
 
 - Require MFA for pushing to [Rubygems](https://guides.rubygems.org/mfa-requirement-opt-in/)

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="rspec" tests="54" skipped="1" failures="3" errors="0" time="10.340688" timestamp="2022-02-18T23:13:30+01:00" hostname="Davids-MBP">
+<properties>
+<property name="seed" value="1491"/>
+</properties>
+<testcase classname="spec.models.customer_spec" name="Customer gives proper initials with a name" file="./spec/models/customer_spec.rb" time="0.012844"></testcase>
+<testcase classname="spec.models.customer_spec" name="Customer removes AB from initials" file="./spec/models/customer_spec.rb" time="0.000988"></testcase>
+<testcase classname="spec.models.customer_spec" name="Customer gives ? if no name present" file="./spec/models/customer_spec.rb" time="0.004158"><failure message="
+expected: &quot;what&quot;
+     got: &quot;?&quot;
+
+(compared using ==)
+" type="RSpec::Expectations::ExpectationNotMetError">Failure/Error: expect(Customer.new(name: &quot;  &quot;).initials).to eq(&quot;what&quot;)
+
+  expected: &quot;what&quot;
+       got: &quot;?&quot;
+
+  (compared using ==)
+./spec/models/customer_spec.rb:13:in `block (2 levels) in &lt;top (required)&gt;&apos;</failure></testcase>
+<testcase classname="spec.models.customer_spec" name="Customer gets custom task rate as float" file="./spec/models/customer_spec.rb" time="0.001049"></testcase>
+<testcase classname="spec.models.customer_spec" name="Customer gets organisation task rate as float" file="./spec/models/customer_spec.rb" time="0.018504"></testcase>
+<testcase classname="spec.models.task_spec" name="Task gets custom task rate as float" file="./spec/models/task_spec.rb" time="0.012150"></testcase>
+<testcase classname="spec.models.task_spec" name="Task gets project task rate as float" file="./spec/models/task_spec.rb" time="0.011729"></testcase>
+<testcase classname="spec.requests.customers.invoices_spec" name="Customers::Invoices GET /customers/:customer_id/invoices/new renders properly" file="./spec/requests/customers/invoices_spec.rb" time="0.338443"></testcase>
+<testcase classname="spec.requests.customers.invoices_spec" name="Customers::Invoices POST /customer/:id/invoices creates new invoice for current customer" file="./spec/requests/customers/invoices_spec.rb" time="0.074399"></testcase>
+<testcase classname="spec.requests.customers.invoices_spec" name="Customers::Invoices POST /customer/:id/invoices fails if user not part of customer organisation" file="./spec/requests/customers/invoices_spec.rb" time="0.059505"></testcase>
+<testcase classname="spec.requests.customers.invoices_spec" name="Customers::Invoices GET /customers/:customer_id/invoices/:id renders properly" file="./spec/requests/customers/invoices_spec.rb" time="0.109457"></testcase>
+<testcase classname="spec.requests.customers.invoices_spec" name="Customers::Invoices GET /customers/:customer_id/invoices/:id fails if user is not in organisation" file="./spec/requests/customers/invoices_spec.rb" time="0.063919"></testcase>
+<testcase classname="spec.requests.customers.invoices_spec" name="Customers::Invoices PATCH /customers/:customer_id/invoices/:id updates due_date" file="./spec/requests/customers/invoices_spec.rb" time="0.061505"></testcase>
+<testcase classname="spec.requests.customers.invoices_spec" name="Customers::Invoices PATCH /customers/:customer_id/invoices/:id fails if user not part of organisation" file="./spec/requests/customers/invoices_spec.rb" time="0.059434"></testcase>
+<testcase classname="spec.requests.customers.invoices_spec" name="Customers::Invoices DELETE /customers/:customer_id/invoices/:id deletes invoice" file="./spec/requests/customers/invoices_spec.rb" time="0.063087"></testcase>
+<testcase classname="spec.requests.customers.invoices_spec" name="Customers::Invoices DELETE /customers/:customer_id/invoices/:id fails if user not part of organisation" file="./spec/requests/customers/invoices_spec.rb" time="0.055472"></testcase>
+<testcase classname="spec.requests.customers.projects_spec" name="Customers::Projects GET /customers/:id/projects/new renders properly" file="./spec/requests/customers/projects_spec.rb" time="0.098078"></testcase>
+<testcase classname="spec.requests.customers.projects_spec" name="Customers::Projects POST /customer/:id/projects creates new project for current customer" file="./spec/requests/customers/projects_spec.rb" time="0.060817"></testcase>
+<testcase classname="spec.requests.customers.projects_spec" name="Customers::Projects POST /customer/:id/projects fails if user not part of customer organisation" file="./spec/requests/customers/projects_spec.rb" time="0.060727"></testcase>
+<testcase classname="spec.requests.customers.projects_spec" name="Customers::Projects GET /customers/:customer_id/projects/:id renders properly" file="./spec/requests/customers/projects_spec.rb" time="0.102394"></testcase>
+<testcase classname="spec.requests.customers.projects_spec" name="Customers::Projects GET /customers/:customer_id/projects/:id fails if user is not in organisation" file="./spec/requests/customers/projects_spec.rb" time="0.061947"></testcase>
+<testcase classname="spec.requests.customers.projects_spec" name="Customers::Projects GET /customers/:id/edit renders properly" file="./spec/requests/customers/projects_spec.rb" time="0.091724"></testcase>
+<testcase classname="spec.requests.customers.projects_spec" name="Customers::Projects GET /customers/:id/edit fails if user is not in organisation" file="./spec/requests/customers/projects_spec.rb" time="0.058895"></testcase>
+<testcase classname="spec.requests.customers.projects_spec" name="Customers::Projects PATCH /customers/:customer_id/projects/:id updates title and status" file="./spec/requests/customers/projects_spec.rb" time="0.068613"></testcase>
+<testcase classname="spec.requests.customers.projects_spec" name="Customers::Projects PATCH /customers/:customer_id/projects/:id fails if user is not part of organisation" file="./spec/requests/customers/projects_spec.rb" time="0.059655"></testcase>
+<testcase classname="spec.requests.customers.projects_spec" name="Customers::Projects DELETE /customers/:customer_id/projects/:id deletes project" file="./spec/requests/customers/projects_spec.rb" time="0.071392"></testcase>
+<testcase classname="spec.requests.customers.projects_spec" name="Customers::Projects DELETE /customers/:customer_id/projects/:id fails if user not part of organisation" file="./spec/requests/customers/projects_spec.rb" time="0.058559"></testcase>
+<testcase classname="spec.requests.customers_spec" name="Customer GET /customers renders if empty" file="./spec/requests/customers_spec.rb" time="0.094174"></testcase>
+<testcase classname="spec.requests.customers_spec" name="Customer GET /customers renders if not empty" file="./spec/requests/customers_spec.rb" time="0.103103"></testcase>
+<testcase classname="spec.requests.customers_spec" name="Customer GET /customers/new renders properly" file="./spec/requests/customers_spec.rb" time="0.089727"></testcase>
+<testcase classname="spec.requests.customers_spec" name="Customer POST /customers creates new customer" file="./spec/requests/customers_spec.rb" time="0.058084"></testcase>
+<testcase classname="spec.requests.customers_spec" name="Customer POST /customers fails if user not part of organisation" file="./spec/requests/customers_spec.rb" time="0.087528"></testcase>
+<testcase classname="spec.requests.customers_spec" name="Customer GET /customers/:id renders properly" file="./spec/requests/customers_spec.rb" time="0.099017"></testcase>
+<testcase classname="spec.requests.customers_spec" name="Customer GET /customers/:id fails if user is not in organisation" file="./spec/requests/customers_spec.rb" time="0.059442"></testcase>
+<testcase classname="spec.requests.customers_spec" name="Customer GET /customers/:id/edit renders properly" file="./spec/requests/customers_spec.rb" time="0.089395"></testcase>
+<testcase classname="spec.requests.customers_spec" name="Customer GET /customers/:id/edit fails if user is not in organisation" file="./spec/requests/customers_spec.rb" time="0.060856"></testcase>
+<testcase classname="spec.requests.customers_spec" name="Customer PATCH /customers/:id updates name" file="./spec/requests/customers_spec.rb" time="0.112481"></testcase>
+<testcase classname="spec.requests.customers_spec" name="Customer PATCH /customers/:id fails if user not part of organisation" file="./spec/requests/customers_spec.rb" time="0.089264"></testcase>
+<testcase classname="spec.requests.customers_spec" name="Customer DELETE /customers/:id deletes customer" file="./spec/requests/customers_spec.rb" time="0.062145"></testcase>
+<testcase classname="spec.requests.customers_spec" name="Customer DELETE /customers/:id fails if user not part of organisation" file="./spec/requests/customers_spec.rb" time="0.059361"></testcase>
+<testcase classname="spec.requests.organisations_request_spec" name="Organisations GET /account/organisation renders if empty" file="./spec/requests/organisations_request_spec.rb" time="0.097840"></testcase>
+<testcase classname="spec.requests.presentation_spec" name="Presentation GET / renders index page" file="./spec/requests/presentation_spec.rb" time="0.025204"></testcase>
+<testcase classname="spec.requests.presentation_spec" name="Presentation GET /account requires sign in" file="./spec/requests/presentation_spec.rb" time="0.099128"></testcase>
+<testcase classname="spec.requests.projects_spec" name="Projects GET /projects renders if empty" file="./spec/requests/projects_spec.rb" time="0.085841"></testcase>
+<testcase classname="spec.requests.projects_spec" name="Projects GET /projects renders if not empty" file="./spec/requests/projects_spec.rb" time="0.117268"></testcase>
+<testcase classname="spec.requests.projects_spec" name="Projects GET /projects/new renders properly" file="./spec/requests/projects_spec.rb" time="0.086244"></testcase>
+<testcase classname="spec.requests.projects_spec" name="Projects POST /projects creates new project" file="./spec/requests/projects_spec.rb" time="0.064447"></testcase>
+<testcase classname="spec.requests.projects_spec" name="Projects POST /projects fails if user not part of organisation" file="./spec/requests/projects_spec.rb" time="0.091873"></testcase>
+<testcase classname="spec.requests.searches_spec" name="Searches GET root, search for company renders root page, then do search request" file="./spec/requests/searches_spec.rb" time="0.101952"></testcase>
+<testcase classname="spec.requests.searches_spec" name="Searches GET /customers searches for customer" file="./spec/requests/searches_spec.rb" time="0.154164"></testcase>
+<testcase classname="spec.system.sign_in_spec" name="Sign in failure" file="./spec/system/sign_in_spec.rb" time="5.310036"><failure message="expected to find text &quot;Hello world&quot; in &quot;Hem\nKarta\nOm oss\nAnslut företag\nLogga in\nLogga in på ditt konto\nHar du inget konto? Anslut idag!\nEmail\nPassword\nGlömt lösenord?\nEtt Ställe Där Du Kan Hitta Certiferade Kontrollansvariga\nLÄNKAR\nKarta\nKontakt\nAnslut företag\nOm oss\nLogga in\nApti.se © 2020. All rights reserved.&quot;" type="RSpec::Expectations::ExpectationNotMetError">Failure/Error: expect(page).to have_content(&quot;Hello world&quot;)
+  expected to find text &quot;Hello world&quot; in &quot;Hem\nKarta\nOm oss\nAnslut företag\nLogga in\nLogga in på ditt konto\nHar du inget konto? Anslut idag!\nEmail\nPassword\nGlömt lösenord?\nEtt Ställe Där Du Kan Hitta Certiferade Kontrollansvariga\nLÄNKAR\nKarta\nKontakt\nAnslut företag\nOm oss\nLogga in\nApti.se © 2020. All rights reserved.&quot;
+
+[Screenshot]: /Users/davidwessman/programming/rails/hitta-ka/tmp/screenshots/failures_r_spec_example_groups_sign_in_failure_200.png
+
+
+./spec/system/sign_in_spec.rb:12:in `block (2 levels) in &lt;main&gt;&apos;</failure></testcase>
+<testcase classname="spec.system.sign_in_spec" name="Sign in success" file="./spec/system/sign_in_spec.rb" time="0.593139"></testcase>
+<testcase classname="spec.system.sign_in_spec" name="Sign in skipped" file="./spec/system/sign_in_spec.rb" time="0.000057"><skipped/></testcase>
+<testcase classname="spec.system.sign_in_spec" name="Sign in error" file="./spec/system/sign_in_spec.rb" time="0.701368"><failure message="undefined local variable or method `invalid_code&apos; for #&lt;RSpec::ExampleGroups::SignIn:0x00007fdd90d6bf08&gt;" type="NameError">Failure/Error: invalid_code
+
+NameError:
+  undefined local variable or method `invalid_code&apos; for #&lt;RSpec::ExampleGroups::SignIn:0x00007fdd90d6bf08&gt;
+
+[Screenshot]: /Users/davidwessman/programming/rails/hitta-ka/tmp/screenshots/failures_r_spec_example_groups_sign_in_error_848.png
+
+
+./spec/system/sign_in_spec.rb:27:in `block (2 levels) in &lt;main&gt;&apos;</failure></testcase>
+</testsuite>

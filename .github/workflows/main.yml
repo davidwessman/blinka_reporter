@@ -30,10 +30,15 @@ jobs:
       - name: Run tests
         env:
           BLINKA_JSON: true
-          BLINKA_REPORT: true
+        run: bundle exec rake test
+
+      - name: Build and install gem
+        run: gem build blinka_reporter.gemspec && gem install blinka-reporter-*.gem
+
+      - name: Report to Blinka
+        env:
           BLINKA_REPOSITORY: davidwessman/blinka_reporter
-          BLINKA_TAP: true
           BLINKA_TEAM_ID: ${{ secrets.BLINKA_TEAM_ID }}
           BLINKA_TEAM_SECRET: ${{ secrets.BLINKA_TEAM_SECRET }}
           BLINKA_TAG: ${{ matrix.ruby }}
-        run: bundle exec rake test
+        run: blinka_reporter --blinka --tap --path ./blinka_results.json
