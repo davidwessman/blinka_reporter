@@ -57,7 +57,7 @@ bundle exec rspec --formatter RspecJunitFormatter --out ./rspec.xml
 
 Add a step to your Github Action Workflow after running tests:
 
-```yaml
+````yaml
 - name: Minitest
   env:
     BLINKA_JSON: true
@@ -72,6 +72,10 @@ Add a step to your Github Action Workflow after running tests:
     BLINKA_TEAM_SECRET: ${{ secrets.BLINKA_TEAM_SECRET }}
   run: bundle exec blinka-reporter --path ./blinka_results.json --blinka
 
+
+```yaml
+- name: Rspec
+  run: bundle exec rspec --formatter RspecJunitFormatter --out ./rspec.xml
 - name: Report minitest to Blinka
   env:
     BLINKA_COMMIT: ${{ github.event.pull_request.head.sha || github.sha }}
@@ -80,13 +84,13 @@ Add a step to your Github Action Workflow after running tests:
     BLINKA_TEAM_ID: ${{ secrets.BLINKA_TEAM_ID }}
     BLINKA_TEAM_SECRET: ${{ secrets.BLINKA_TEAM_SECRET }}
   run: bundle exec blinka-reporter --path ./rspec.xml --blinka
-```
+````
 
 `BLINKA_TAG` is optional and can be used to separate different reports, for example when using a build matrix.
 
 ## How to make multiple test runs into one report?
 
-**Only reported for Minitest, open an issue for Rspec-support**
+**Only supported for Minitest, open an issue for Rspec-support**
 
 For example when running tests in parallel you might need to run system tests separately.
 By first using `BLINKA_JSON` it will create a clean file, `BLINKA_APPEND` will append the results.
@@ -141,8 +145,6 @@ ok 12 - test/test_blinka_minitest.rb - test_kind
 ok 13 - test/test_blinka_minitest.rb - test_message_no_failure
 ok 14 - test/test_blinka_minitest.rb - test_source_location
 ```
-
-It should format tests as TAP-format.
 
 # Development
 
