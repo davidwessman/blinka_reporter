@@ -34,7 +34,7 @@ module BlinkaReporter
         @data
           .fetch(:results, [])
           .map do |result|
-            if result.key?(:image)
+            if !result[:image].nil?
               result[:image] = Blinka.upload_image(filepath: result[:image])
               result
             else
