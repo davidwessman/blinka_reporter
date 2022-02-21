@@ -2,7 +2,8 @@
 
 ## What does this gem do?
 
-It connects to [supported ruby testing frameworks](#which-ruby-testing-frameworks-are-supported) and outputs a report of all passing, failing and skipped tests into a json-format. This format can be used to report test results using the [ruby client](#how-to-send-report-to-blinka) to [Blinka](#what-is-blinka).
+Generate a test results report for Minitest or interpret a junit-report from Rspec.
+These results can then be [reported](#how-to-send-report-to-blinka) to [Blinka](#what-is-blinka) which posts your test results directly in your Github Pull Requests.
 
 ## How do I install the gem?
 
@@ -51,13 +52,13 @@ bundle exec rspec --formatter RspecJunitFormatter --out ./rspec.xml
 
 1. Output your test results as described [above](#how-to-generate-test-report-in-the-right-format).
 1. Configure `BLINKA_TEAM_ID`, `BLINKA_TEAM_SECRET`, `BLINKA_REPOSITORY`.
-1. `bundle exec blinka-reporter --path {./blinka_results.json,./rspec.xml} --blinka`
+1. `bundle exec blinka_reporter --path {./blinka_results.json,./rspec.xml} --blinka`
 
 ## How can I send report in Github Action?
 
 Add a step to your Github Action Workflow after running tests:
 
-````yaml
+```yaml
 - name: Minitest
   env:
     BLINKA_JSON: true
@@ -70,8 +71,8 @@ Add a step to your Github Action Workflow after running tests:
     BLINKA_TAG: ""
     BLINKA_TEAM_ID: ${{ secrets.BLINKA_TEAM_ID }}
     BLINKA_TEAM_SECRET: ${{ secrets.BLINKA_TEAM_SECRET }}
-  run: bundle exec blinka-reporter --path ./blinka_results.json --blinka
-
+  run: bundle exec blinka_reporter --path ./blinka_results.json --blinka
+```
 
 ```yaml
 - name: Rspec
@@ -83,8 +84,8 @@ Add a step to your Github Action Workflow after running tests:
     BLINKA_TAG: ""
     BLINKA_TEAM_ID: ${{ secrets.BLINKA_TEAM_ID }}
     BLINKA_TEAM_SECRET: ${{ secrets.BLINKA_TEAM_SECRET }}
-  run: bundle exec blinka-reporter --path ./rspec.xml --blinka
-````
+  run: bundle exec blinka_reporter --path ./rspec.xml --blinka
+```
 
 `BLINKA_TAG` is optional and can be used to separate different reports, for example when using a build matrix.
 
@@ -115,7 +116,7 @@ By first using `BLINKA_JSON` it will create a clean file, `BLINKA_APPEND` will a
     BLINKA_TAG: ""
     BLINKA_TEAM_ID: ${{ secrets.BLINKA_TEAM_ID }}
     BLINKA_TEAM_SECRET: ${{ secrets.BLINKA_TEAM_SECRET }}
-  run: bundle exec blinka-reporter --path ./blinka_results.json --blinka
+  run: bundle exec blinka_reporter --path ./blinka_results.json --blinka
 ```
 
 ## How can I report tests in TAP-format?
@@ -126,7 +127,7 @@ Generate your test results like [above](#how-to-generate-test-report-in-the-righ
 replace `<path>` with your json or xml file.
 
 ```sh
-bundle exec blinka-reporter --tap --path <path>
+bundle exec blinka_reporter --tap --path <path>
 
 TAP version 13
 1..14
