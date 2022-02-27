@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.1] - 2022-02-27
+
+- Rspec
+  - Improve handling of newlines in backtrace
+  - Adds more testing
+  - Handles multiple screenshot tags
+
 ## [0.6.0] - 2022-02-20
 
 - Adds support for Rspec.
@@ -130,8 +137,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Handle inconsistency in source_location of test result in Minitest for different versions.
 
-[unreleased]: https://github.com/davidwessman/blinka_reporter/compare/v0.6.0...HEAD
-[0.5.2]: https://github.com/davidwessman/blinka_reporter/compare/v0.5.2...v0.6.0
+[unreleased]: https://github.com/davidwessman/blinka_reporter/compare/v0.6.1...HEAD
+[0.6.1]: https://github.com/davidwessman/blinka_reporter/compare/v0.6.0...v0.6.1
+[0.6.0]: https://github.com/davidwessman/blinka_reporter/compare/v0.5.2...v0.6.0
 [0.5.2]: https://github.com/davidwessman/blinka_reporter/compare/v0.5.1...v0.5.2
 [0.5.1]: https://github.com/davidwessman/blinka_reporter/compare/v0.5.0...v0.5.1
 [0.5.0]: https://github.com/davidwessman/blinka_reporter/compare/v0.4.0...v0.5.0

@@ -70,7 +70,7 @@ expected: &quot;what&quot;
     <failure message="expected to find text &quot;Hello world&quot; in &quot;Hem\nKarta\nOm oss\nAnslut företag\nLogga in\nLogga in på ditt konto\nHar du inget konto? Anslut idag!\nEmail\nPassword\nGlömt lösenord?\nEtt Ställe Där Du Kan Hitta Certiferade Kontrollansvariga\nLÄNKAR\nKarta\nKontakt\nAnslut företag\nOm oss\nLogga in\nApti.se © 2020. All rights reserved.&quot;" type="RSpec::Expectations::ExpectationNotMetError">Failure/Error: expect(page).to have_content(&quot;Hello world&quot;)
   expected to find text &quot;Hello world&quot; in &quot;Hem\nKarta\nOm oss\nAnslut företag\nLogga in\nLogga in på ditt konto\nHar du inget konto? Anslut idag!\nEmail\nPassword\nGlömt lösenord?\nEtt Ställe Där Du Kan Hitta Certiferade Kontrollansvariga\nLÄNKAR\nKarta\nKontakt\nAnslut företag\nOm oss\nLogga in\nApti.se © 2020. All rights reserved.&quot;
 
-[Screenshot]: ./spec/tmp/screenshots/failures_r_spec_example_groups_sign_in_failure_200.png
+[Screenshot Image]: ./test/tmp/screenshots/failures_r_spec_example_groups_sign_in_failure_200.png
 
 
 ./spec/system/sign_in_spec.rb:12:in `block (2 levels) in &lt;main&gt;&apos;</failure>
@@ -85,7 +85,7 @@ expected: &quot;what&quot;
 NameError:
   undefined local variable or method `invalid_code&apos; for #&lt;RSpec::ExampleGroups::SignIn:0x00007fdd90d6bf08&gt;
 
-[Screenshot]: ./spec/tmp/screenshots/failures_r_spec_example_groups_sign_in_error_848.png
+[Screenshot]: ./test/tmp/screenshots/failures_r_spec_example_groups_sign_in_error_848.png
 
 
 ./spec/system/sign_in_spec.rb:27:in `block (2 levels) in &lt;main&gt;&apos;</failure>
