@@ -86,9 +86,11 @@ module BlinkaReporter
           failure =
             test_case.nodes.select { |node| node.name == 'failure' }.first
           if failure
-            result[:image] = get_image_path(failure.text)
             result[:result] = 'fail'
-            result[:backtrace] = failure.text.split('\n')
+
+            # Needs to be double quotation marks to work properly
+            result[:backtrace] = failure.text.split("\n")
+            result[:image] = get_image_path(result[:backtrace])
             result[:message] = failure.attributes[:message]
           end
         else
@@ -98,12 +100,15 @@ module BlinkaReporter
       end
     end
 
-    def self.get_image_path(text)
-      path = /^\[Screenshot\]:\s([\S]*)$/.match(text)
-      return if path.nil?
-      path = path[1]
-      return unless File.exists?(path)
-      path
+    def self.get_image_path(backtrace)
+      backtrace.each do |text|
+        path = /^(\[Screenshot\]|\[Screenshot Image\]):\s([\S]*)$/.match(text)
+        next if path.nil?
+        path = path[-1]
+        next unless File.exist?(path)
+        return path
+      end
+      nil
     end
   end
 end
