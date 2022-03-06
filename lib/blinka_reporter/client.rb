@@ -8,44 +8,58 @@ require 'blinka_reporter/tap'
 
 module BlinkaReporter
   class Client
-    def initialize
-      @config = BlinkaReporter::Config.new
-    end
-
-    def report(path: './blinka_results.json', blinka: false, tap: false)
-      unless File.exist?(path)
-        raise(
-          BlinkaReporter::Error,
-          "Could not find #{path}, was it generated when running the tests?"
-        )
-      end
-
-      data =
-        if path.end_with?('.xml')
-          self.class.parse_xml(path: path)
-        elsif path.end_with?('.json')
-          self.class.parse_json(path: path)
-        else
+    def parse(paths: nil)
+      paths ||= ['./blinka_results.json']
+      paths = Array(paths)
+      paths.each do |path|
+        unless File.exist?(path)
           raise(
             BlinkaReporter::Error,
-            "Unknown format of #{path}, needs to be .json or .xml"
+            "Could not find #{path}, make sure the path is correct."
           )
         end
+      end
 
+      merge_results(
+        paths.map do |path|
+          if path.end_with?('.xml')
+            parse_xml(path: path)
+          elsif path.end_with?('.json')
+            parse_json(path: path)
+          else
+            raise(
+              BlinkaReporter::Error,
+              "Unknown format of #{path}, needs to be .json or .xml"
+            )
+          end
+        end
+      )
+    end
+
+    def report(data:, blinka: false, tap: false, config: nil)
       BlinkaReporter::Tap.report(data) if tap
-      BlinkaReporter::Blinka.report(config: @config, data: data) if blinka
+      BlinkaReporter::Blinka.report(config: config, data: data) if blinka
       0
     end
 
-    def self.report(path:, tap: false, blinka: false)
-      Client.new.report(path: path, tap: tap, blinka: blinka)
+    private
+
+    def merge_results(data_array)
+      data = { total_time: 0, nbr_tests: 0, nbr_assertions: 0, results: [] }
+      data_array.each do |result|
+        data[:total_time] += result[:total_time] || 0
+        data[:nbr_tests] += result[:nbr_tests] || 0
+        data[:nbr_assertions] += result[:nbr_assertions] || 0
+        data[:results] += result[:results] || []
+      end
+      data
     end
 
-    def self.parse_json(path:)
+    def parse_json(path:)
       JSON.parse(File.open(path).read, symbolize_names: true)
     end
 
-    def self.parse_xml(path:)
+    def parse_xml(path:)
       data = Ox.load_file(path, { symbolize_keys: true, skip: :skip_none })
       test_suite = data.root
       unless test_suite.name == 'testsuite'
@@ -62,7 +76,7 @@ module BlinkaReporter
       }
     end
 
-    def self.xml_seed(ox_properties)
+    def xml_seed(ox_properties)
       ox_properties.each do |property|
         property.nodes.each do |node|
           return node.attributes[:value] if node.attributes[:name] == 'seed'
@@ -72,7 +86,7 @@ module BlinkaReporter
     end
 
     # Kind is extracted from the second part of spec.models.customer_spec
-    def self.xml_test_cases(test_cases)
+    def xml_test_cases(test_cases)
       test_cases.map do |test_case|
         result = {
           kind: Array(test_case.attributes[:classname]&.split('.'))[1],
@@ -100,7 +114,7 @@ module BlinkaReporter
       end
     end
 
-    def self.get_image_path(backtrace)
+    def get_image_path(backtrace)
       backtrace.each do |text|
         path = /^(\[Screenshot\]|\[Screenshot Image\]):\s([\S]*)$/.match(text)
         next if path.nil?

@@ -26,3 +26,4 @@ yarn-error.log*
 .yarn-integrity
 
 /blinka_results.json
+/results.json

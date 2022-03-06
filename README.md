@@ -16,7 +16,7 @@ gem install blinka-reporter
 or add to your Gemfile
 
 ```ruby
-gem 'blinka-repoter', '~> 0.5.0'
+gem 'blinka-reporter', '~> 0.7.0'
 ```
 
 ## Which ruby testing frameworks are supported?
@@ -35,10 +35,10 @@ Blinka is a web service developed by [@davidwessman](https://github.com/davidwes
 ### Minitest
 
 ```sh
-BLINKA_JSON=true bundle exec rails test
+BLINKA_PATH=./tests.json bundle exec rails test
 ```
 
-Output as `./blinka_results.json`
+Output as `./tests.json`.
 
 ### Rspec
 
@@ -51,8 +51,7 @@ bundle exec rspec --formatter RspecJunitFormatter --out ./rspec.xml
 ## How to send report to Blinka?
 
 1. Output your test results as described [above](#how-to-generate-test-report-in-the-right-format).
-1. Configure `BLINKA_TEAM_ID`, `BLINKA_TEAM_SECRET`, `BLINKA_REPOSITORY`.
-1. `bundle exec blinka_reporter --path {./blinka_results.json,./rspec.xml} --blinka`
+1. `bundle exec blinka_reporter --path {./blinka_results.json,./rspec.xml} --blinka --team-id <BLINKA_TEAM_ID> --team-secret <BLINKA_TEAM_SECRET> --repository davidwessman/blinka_reporter`
 
 ## How can I send report in Github Action?
 
@@ -65,58 +64,59 @@ Add a step to your Github Action Workflow after running tests:
   run: bundle exec rake test
 
 - name: Report minitest to Blinka
-  env:
-    BLINKA_COMMIT: ${{ github.event.pull_request.head.sha || github.sha }}
-    BLINKA_REPOSITORY: davidwessman/blinka_reporter
-    BLINKA_TAG: ""
-    BLINKA_TEAM_ID: ${{ secrets.BLINKA_TEAM_ID }}
-    BLINKA_TEAM_SECRET: ${{ secrets.BLINKA_TEAM_SECRET }}
-  run: bundle exec blinka_reporter --path ./blinka_results.json --blinka
+  run: |
+    bundle exec blinka_reporter \
+      --path ./blinka_results.json \
+      --blinka \
+      --commit ${{ github.event.pull_request.head.sha || github.sha }} \
+      --repository davidwessman/blinka_reporter \
+      --team-id ${{ secrets.BLINKA_TEAM_ID }} \
+      --team-secret ${{ secrets.BLINKA_TEAM_SECRET }}
 ```
 
 ```yaml
 - name: Rspec
   run: bundle exec rspec --formatter RspecJunitFormatter --out ./rspec.xml
 - name: Report minitest to Blinka
-  env:
-    BLINKA_COMMIT: ${{ github.event.pull_request.head.sha || github.sha }}
-    BLINKA_REPOSITORY: davidwessman/blinka_reporter
-    BLINKA_TAG: ""
-    BLINKA_TEAM_ID: ${{ secrets.BLINKA_TEAM_ID }}
-    BLINKA_TEAM_SECRET: ${{ secrets.BLINKA_TEAM_SECRET }}
-  run: bundle exec blinka_reporter --path ./rspec.xml --blinka
+  run: |
+    bundle exec blinka_reporter \
+      --path ./rspec.xml \
+      --blinka \
+      --commit ${{ github.event.pull_request.head.sha || github.sha }} \
+      --repository davidwessman/blinka_reporter \
+      --team-id ${{ secrets.BLINKA_TEAM_ID }} \
+      --team-secret ${{ secrets.BLINKA_TEAM_SECRET }}
 ```
 
-`BLINKA_TAG` is optional and can be used to separate different reports, for example when using a build matrix.
+`--tag` is optional and can be used to separate different reports, for example when using a build matrix.
 
 ## How to make multiple test runs into one report?
 
-**Only supported for Minitest, open an issue for Rspec-support**
-
 For example when running tests in parallel you might need to run system tests separately.
-By first using `BLINKA_JSON` it will create a clean file, `BLINKA_APPEND` will append the results.
+Output the test results to different paths with `BLINKA_PATH`.
 
 ```yaml
 - name: System tests
   env:
-    BLINKA_JSON: true
+    BLINKA_PATH: ./system_tests.json
     PARALLEL_WORKERS: 1
   run: bundle exec rails test:system
 
 - name: Tests
   env:
-    BLINKA_JSON: true
-    BLINKA_APPEND: true
+    BLINKA_JSON: ./tests.json
   run: bundle exec rails test
 
 - name: Report to Blinka
-  env:
-    BLINKA_COMMIT: ${{ github.event.pull_request.head.sha || github.sha }}
-    BLINKA_REPOSITORY: davidwessman/blinka_reporter
-    BLINKA_TAG: ""
-    BLINKA_TEAM_ID: ${{ secrets.BLINKA_TEAM_ID }}
-    BLINKA_TEAM_SECRET: ${{ secrets.BLINKA_TEAM_SECRET }}
-  run: bundle exec blinka_reporter --path ./blinka_results.json --blinka
+  run: |
+    bundle exec blinka_reporter \
+      --path ./system_tests.json \
+      --path ./tests.json \
+      --blinka \
+      --commit ${{ github.event.pull_request.head.sha || github.sha }} \
+      --repository davidwessman/blinka_reporter \
+      --team-id ${{ secrets.BLINKA_TEAM_ID }} \
+      --team-secret ${{ secrets.BLINKA_TEAM_SECRET }}
 ```
 
 ## How can I report tests in TAP-format?
