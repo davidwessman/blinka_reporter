@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.0] - 2022-03-06
+
+- Support multiple `--path` calls to combine results from multiple files.
+- Replaces `BLINKA_JSON` and `BLINKA_APPEND` with `BLINKA_PATH`.
+- Adds all reporter options as CLI-options instead of using environment variables. -`BLINKA_REPOSITORY` => `--repository`
+
 ## [0.6.1] - 2022-02-27
 
 - Rspec
@@ -137,7 +143,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Handle inconsistency in source_location of test result in Minitest for different versions.
 
-[unreleased]: https://github.com/davidwessman/blinka_reporter/compare/v0.6.1...HEAD
+[unreleased]: https://github.com/davidwessman/blinka_reporter/compare/v0.7.0...HEAD
+[0.7.0]: https://github.com/davidwessman/blinka_reporter/compare/v0.6.1...v0.7.0
 [0.6.1]: https://github.com/davidwessman/blinka_reporter/compare/v0.6.0...v0.6.1
 [0.6.0]: https://github.com/davidwessman/blinka_reporter/compare/v0.5.2...v0.6.0
 [0.5.2]: https://github.com/davidwessman/blinka_reporter/compare/v0.5.1...v0.5.2

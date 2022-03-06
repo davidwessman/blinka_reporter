@@ -11,7 +11,6 @@ class BlinkaReporterMinitestAdapterTest < Minitest::Test
     # We must allow webmock to stay enabled, even if we need to disable it in the client.
     ENV['BLINKA_ALLOW_WEBMOCK_DISABLE'] = 'false'
     WebMock.disable_net_connect!
-    @config = BlinkaReporter::Config.new
     stub_client
     BlinkaReporter::Config.any_instance.expects(:validate_blinka).returns(true)
   end
@@ -21,35 +20,41 @@ class BlinkaReporterMinitestAdapterTest < Minitest::Test
   end
 
   def test_report_class_method_json
-    BlinkaReporter::Client.report(
-      path: 'test/example_results.json',
-      tap: true,
-      blinka: true
-    )
+    client = BlinkaReporter::Client.new
+    data = client.parse(paths: 'test/example_results.json')
+    client.report(data: data, config: config, tap: true, blinka: true)
   end
 
   def test_report_class_method_json2
-    BlinkaReporter::Client.report(
-      path: 'test/blinka_results.json',
-      tap: true,
-      blinka: true
-    )
+    client = BlinkaReporter::Client.new
+    data = client.parse(paths: 'test/blinka_results.json')
+    client.report(data: data, config: config, tap: true, blinka: true)
   end
 
   def test_report_class_method_xml
-    BlinkaReporter::Client.report(
-      path: 'test/rspec.xml',
-      blinka: true,
-      tap: true
-    )
+    client = BlinkaReporter::Client.new
+    data = client.parse(paths: 'test/rspec.xml')
+    client.report(data: data, config: config, tap: true, blinka: true)
+  end
+
+  def test_combining_results
+    client = BlinkaReporter::Client.new
+    data = client.parse(paths: %w[test/rspec.xml test/blinka_results.json])
+    client.report(data: data, config: config, tap: true, blinka: true)
   end
 
   def stub_client
     WebMock
-      .stub_request(:post, "#{@config.host}/api/v1/authentication")
+      .stub_request(
+        :post,
+        "#{BlinkaReporter::Config::DEFAULT_HOST}/api/v1/authentication"
+      )
       .to_return(body: { auth_token: 'auth-token' }.to_json)
     WebMock
-      .stub_request(:get, "#{@config.host}/api/v1/presign")
+      .stub_request(
+        :get,
+        "#{BlinkaReporter::Config::DEFAULT_HOST}/api/v1/presign"
+      )
       .to_return(
         body: {
           fields: {
@@ -69,6 +74,19 @@ class BlinkaReporterMinitestAdapterTest < Minitest::Test
         }.to_json
       )
     WebMock.stub_request(:post, S3_URL).to_return(status: 204)
-    WebMock.stub_request(:post, "#{@config.host}/api/v1/report")
+    WebMock.stub_request(
+      :post,
+      "#{BlinkaReporter::Config::DEFAULT_HOST}/api/v1/report"
+    )
+  end
+
+  def config
+    BlinkaReporter::Config.new(
+      tag: '',
+      commit: SecureRandom.hex(16),
+      team_id: 'c82797eeb897ef195bfc',
+      team_secret: 'bb47b4b25a365c86108fa1b667b9df9b',
+      repository: 'davidwessman/blinka'
+    )
   end
 end

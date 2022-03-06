@@ -99,7 +99,10 @@ module BlinkaReporter
       when 200
         @jwt_token = JSON.parse(response.body).dig('auth_token')
       else
-        raise(BlinkaReporter::Error, 'Could not authenticate to API')
+        raise(
+          BlinkaReporter::Error,
+          "Could not authenticate to API #{response.code}"
+        )
       end
     end
 

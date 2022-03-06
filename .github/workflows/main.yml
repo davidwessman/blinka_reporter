@@ -8,6 +8,7 @@ jobs:
     name: Tests
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         ruby: ["2.6", "2.7", "3.0", "3.1"]
 
@@ -29,7 +30,7 @@ jobs:
 
       - name: Run tests
         env:
-          BLINKA_JSON: true
+          BLINKA_PATH: ./results.json
         run: bundle exec rake test
 
       - name: Build and install gem
@@ -38,9 +39,12 @@ jobs:
 
       - name: Report to Blinka
         if: always()
-        env:
-          BLINKA_REPOSITORY: davidwessman/blinka_reporter
-          BLINKA_TEAM_ID: ${{ secrets.BLINKA_TEAM_ID }}
-          BLINKA_TEAM_SECRET: ${{ secrets.BLINKA_TEAM_SECRET }}
-          BLINKA_TAG: ${{ matrix.ruby }}
-        run: blinka_reporter --blinka --tap --path ./blinka_results.json
+        run: |
+          blinka_reporter \
+          --blinka \
+          --tap \
+          --path ./results.json \
+          --repository davidwessman/blinka_reporter \
+          --tag ${{ matrix.ruby }} \
+          --team-id ${{ secrets.BLINKA_TEAM_ID }} \
+          --team-secret ${{ secrets.BLINKA_TEAM_SECRET }}
