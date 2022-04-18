@@ -6,7 +6,7 @@
   "devDependencies": {
     "@prettier/plugin-ruby": "^2.1.0",
     "husky": "^7.0.4",
-    "lint-staged": "^12.3.7"
+    "lint-staged": "^12.3.8"
   },
   "scripts": {
     "pretty": "./node_modules/.bin/prettier --write ."
