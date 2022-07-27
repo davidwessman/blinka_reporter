@@ -33,7 +33,7 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency('httparty', '~> 0.18')
   gem.add_dependency('ox', '~> 2')
-  gem.add_development_dependency('dotenv', '~> 2.7.6')
+  gem.add_development_dependency('dotenv', '~> 2.8.0')
   gem.add_development_dependency('minitest', '~> 5.0')
   gem.add_development_dependency('mocha', '~> 1.12')
   gem.add_development_dependency('rake', '~> 13')
