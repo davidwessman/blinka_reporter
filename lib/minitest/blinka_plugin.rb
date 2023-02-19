@@ -40,7 +40,7 @@ module Minitest
           nbr_assertions: assertions,
           seed: options[:seed],
           results:
-            tests.map do |test_result|
+            tests&.map do |test_result|
               BlinkaReporter::MinitestAdapter.new(test_result).report
             end
         }
