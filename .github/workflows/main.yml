@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
@@ -37,14 +37,21 @@ jobs:
         if: always()
         run: gem build blinka_reporter.gemspec && gem install blinka-reporter-*.gem
 
-      - name: Report to Blinka
+      - name: Report TAP-results
         if: always()
         run: |
-          blinka_reporter \
-          --blinka \
-          --tap \
-          --path ./results.json \
-          --repository davidwessman/blinka_reporter \
-          --tag ${{ matrix.ruby }} \
-          --team-id ${{ secrets.BLINKA_TEAM_ID }} \
-          --team-secret ${{ secrets.BLINKA_TEAM_SECRET }}
+          blinka_reporter --tap --path ./results.json
+
+      - name: Export Blinka-metadata
+        if: always()
+        run: |
+          echo "${{ matrix.ruby }}" > ./blinka_tag
+
+      - name: Blinka - Archive
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: blinka-${{ strategy.job-index }}
+          path: |
+            ./results.json
+            ./blinka_tag
