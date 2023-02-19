@@ -42,8 +42,18 @@ module Minitest
           results:
             tests&.map do |test_result|
               BlinkaReporter::MinitestAdapter.new(test_result).report
-            end
+            end || []
         }
+
+        if ENV['BLINKA_APPEND'] == 'true' && File.exist?(report_path)
+          existing =
+            JSON.parse(File.open(report_path).read, symbolize_names: true)
+          result[:results] = existing[:results] + result[:results]
+          result[:nbr_tests] = existing[:nbr_tests] + result[:nbr_tests]
+          result[:nbr_assertions] =
+            existing[:nbr_assertions] + result[:nbr_assertions]
+          result[:total_time] = existing[:total_time] + result[:total_time]
+        end
 
         File.open(report_path, 'w+') do |file|
           file.write(JSON.pretty_generate(result))
