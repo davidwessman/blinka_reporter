@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.1] - 2023-02-19
+
+- Handles empty test results.
+
 ## [0.7.0] - 2022-03-06
 
 - Support multiple `--path` calls to combine results from multiple files.
