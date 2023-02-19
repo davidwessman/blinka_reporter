@@ -60,35 +60,46 @@ Add a step to your Github Action Workflow after running tests:
 ```yaml
 - name: Minitest
   env:
-    BLINKA_JSON: true
+    BLINKA_PATH: ./results.json
   run: bundle exec rake test
 
-- name: Report minitest to Blinka
+// Add a tag to be able to separate multiple jobs, e.g. "ruby-${{ matrix.ruby }}".
+// This is optional.
+- name: Export Blinka-metadata
+  if: always()
   run: |
-    bundle exec blinka_reporter \
-      --path ./blinka_results.json \
-      --blinka \
-      --commit ${{ github.event.pull_request.head.sha || github.sha }} \
-      --repository davidwessman/blinka_reporter \
-      --team-id ${{ secrets.BLINKA_TEAM_ID }} \
-      --team-secret ${{ secrets.BLINKA_TEAM_SECRET }}
+    echo "ruby gem" > ./blinka_tag
+
+// Archive all files required by Blinka, json, the tag and any images.
+// Blinka will automatically fetch the results when the Github Action Workflow is finished.
+- name: Archive results for Blinka
+  if: always()
+  uses: actions/upload-artifact@v3
+  with:
+    name: blinka-${{ strategy.job-index }}
+    path: |
+      ./results.json
+      ./blinka_tag
 ```
 
 ```yaml
 - name: Rspec
   run: bundle exec rspec --formatter RspecJunitFormatter --out ./rspec.xml
-- name: Report minitest to Blinka
-  run: |
-    bundle exec blinka_reporter \
-      --path ./rspec.xml \
-      --blinka \
-      --commit ${{ github.event.pull_request.head.sha || github.sha }} \
-      --repository davidwessman/blinka_reporter \
-      --team-id ${{ secrets.BLINKA_TEAM_ID }} \
-      --team-secret ${{ secrets.BLINKA_TEAM_SECRET }}
-```
 
-`--tag` is optional and can be used to separate different reports, for example when using a build matrix.
+- name: Export Blinka-metadata
+  if: always()
+  run: |
+    echo "ruby gem" > ./blinka_tag
+
+- name: Archive results for Blinka
+  if: always()
+  uses: actions/upload-artifact@v3
+  with:
+    name: blinka-${{ strategy.job-index }}
+    path: |
+      ./rspec.xml
+      ./blinka_tag
+```
 
 ## How to make multiple test runs into one report?
 
@@ -107,16 +118,33 @@ Output the test results to different paths with `BLINKA_PATH`.
     BLINKA_JSON: ./tests.json
   run: bundle exec rails test
 
-- name: Report to Blinka
-  run: |
-    bundle exec blinka_reporter \
-      --path ./system_tests.json \
-      --path ./tests.json \
-      --blinka \
-      --commit ${{ github.event.pull_request.head.sha || github.sha }} \
-      --repository davidwessman/blinka_reporter \
-      --team-id ${{ secrets.BLINKA_TEAM_ID }} \
-      --team-secret ${{ secrets.BLINKA_TEAM_SECRET }}
+- name: Archive results for Blinka
+  if: always()
+  uses: actions/upload-artifact@v3
+  with:
+    name: blinka-${{ strategy.job-index }}
+    path: |
+      ./tests.json
+      ./system_tests.json
+      ./blinka_tag
+```
+
+## How can I run multiple test runs to one file?
+
+For Minitest this can be done by setting `BLINKA_APPEND=true`, make sure to clean the `BLINKA_PATH` file before running the tests.
+
+```yaml
+- name: Tests 1
+  env:
+    BLINKA_PATH: ./tests.json
+    BLINKA_APPEND: true
+  run: bundle exec rails test:system
+
+- name: Tests 2
+  env:
+    BLINKA_PATH: ./tests.json
+    BLINKA_APPEND: true
+  run: bundle exec rails test
 ```
 
 ## How can I report tests in TAP-format?
