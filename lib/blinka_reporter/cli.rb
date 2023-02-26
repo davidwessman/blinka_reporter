@@ -1,10 +1,10 @@
-require 'blinka_reporter/client'
-require 'blinka_reporter/version'
+require "blinka_reporter/client"
+require "blinka_reporter/version"
 
 module BlinkaReporter
   class Cli
     def self.run(argv)
-      if (argv.index('--help') || -1) >= 0
+      if (argv.index("--help") || -1) >= 0
         puts(<<~EOS)
           blinka_reporter version #{BlinkaReporter::VERSION}
 
@@ -30,17 +30,17 @@ module BlinkaReporter
         return 0
       end
 
-      tap = (argv.index('--tap') || -1) >= 0
+      tap = (argv.index("--tap") || -1) >= 0
 
-      paths = argv_value_for(argv, '--path')
+      paths = argv_value_for(argv, "--path")
 
-      blinka = (argv.index('--blinka') || -1) >= 0
-      commit = argv_value_for(argv, '--commit')&.first
-      repository = argv_value_for(argv, '--repository')&.first
-      tag = argv_value_for(argv, '--tag')&.first
-      team_id = argv_value_for(argv, '--team-id')&.first
-      team_secret = argv_value_for(argv, '--team-secret')&.first
-      host = argv_value_for(argv, '--host')&.first
+      blinka = (argv.index("--blinka") || -1) >= 0
+      commit = argv_value_for(argv, "--commit")&.first
+      repository = argv_value_for(argv, "--repository")&.first
+      tag = argv_value_for(argv, "--tag")&.first
+      team_id = argv_value_for(argv, "--team-id")&.first
+      team_secret = argv_value_for(argv, "--team-secret")&.first
+      host = argv_value_for(argv, "--host")&.first
 
       client = BlinkaReporter::Client.new
       data = client.parse(paths: paths)

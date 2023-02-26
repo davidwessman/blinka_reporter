@@ -1,9 +1,9 @@
-require 'blinka_reporter/error'
+require "blinka_reporter/error"
 
 module BlinkaReporter
   class Config
     attr_reader(:commit, :host, :repository, :tag, :team_id, :team_secret)
-    DEFAULT_HOST = 'https://www.blinka.app'
+    DEFAULT_HOST = "https://www.blinka.app"
 
     def initialize(
       tag:,
@@ -23,7 +23,7 @@ module BlinkaReporter
 
     def validate_blinka
       required = [@team_id, @team_secret, @repository]
-      if required.include?(nil) || required.include?('')
+      if required.include?(nil) || required.include?("")
         raise(BlinkaReporter::Error, <<~EOS)
           Missing configuration, make sure to set --team-id, --team-secret, --repository
         EOS
@@ -31,7 +31,7 @@ module BlinkaReporter
     end
 
     def find_commit
-      ENV.fetch('HEROKU_TEST_RUN_COMMIT_VERSION', `git rev-parse HEAD`.chomp)
+      ENV.fetch("HEROKU_TEST_RUN_COMMIT_VERSION", `git rev-parse HEAD`.chomp)
     end
   end
 end

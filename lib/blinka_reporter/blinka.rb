@@ -1,12 +1,12 @@
-require 'httparty'
-require 'blinka_reporter/error'
+require "httparty"
+require "blinka_reporter/error"
 
 module BlinkaReporter
   class Blinka
     SUPPORTED_MIME_TYPES = {
-      jpg: 'image/jpeg',
-      jpeg: 'image/jpeg',
-      png: 'image/png'
+      jpg: "image/jpeg",
+      jpeg: "image/jpeg",
+      png: "image/png"
     }
 
     include HTTParty
@@ -22,7 +22,7 @@ module BlinkaReporter
     end
 
     def report
-      if ENV.fetch('BLINKA_ALLOW_WEBMOCK_DISABLE', 'true') == 'true' &&
+      if ENV.fetch("BLINKA_ALLOW_WEBMOCK_DISABLE", "true") == "true" &&
            defined?(WebMock) && WebMock.respond_to?(:disable!)
         WebMock.disable!
       end
@@ -59,11 +59,11 @@ module BlinkaReporter
 
       response =
         self.class.post(
-          '/report',
+          "/report",
           body: body.to_json,
           headers: {
-            'Content-Type' => 'application/json',
-            'Authorization' => "Bearer #{@jwt_token}"
+            "Content-Type" => "application/json",
+            "Authorization" => "Bearer #{@jwt_token}"
           }
         )
       case response.code
@@ -88,16 +88,18 @@ module BlinkaReporter
     def authenticate
       response =
         self.class.post(
-          '/authentication',
+          "/authentication",
           body: {
             token_id: @config.team_id,
             token_secret: @config.team_secret
           }.to_json,
-          headers: { 'Content-Type' => 'application/json' }
+          headers: {
+            "Content-Type" => "application/json"
+          }
         )
       case response.code
       when 200
-        @jwt_token = JSON.parse(response.body).dig('auth_token')
+        @jwt_token = JSON.parse(response.body).dig("auth_token")
       else
         raise(
           BlinkaReporter::Error,
@@ -111,7 +113,7 @@ module BlinkaReporter
 
       file = File.open(filepath)
       filename = File.basename(filepath)
-      extension = File.extname(filepath).delete('.').to_sym
+      extension = File.extname(filepath).delete(".").to_sym
       content_type = SUPPORTED_MIME_TYPES[extension]
       return if content_type.nil?
 
@@ -130,41 +132,44 @@ module BlinkaReporter
     def self.presign_image(filename:, content_type:)
       response =
         self.get(
-          '/presign',
-          body: { filename: filename, content_type: content_type }
+          "/presign",
+          body: {
+            filename: filename,
+            content_type: content_type
+          }
         )
 
       case response.code
       when 200
         JSON.parse(response.body)
       else
-        raise(BlinkaReporter::Error, 'Could not presign file')
+        raise(BlinkaReporter::Error, "Could not presign file")
       end
     end
 
     def self.upload_to_storage(presigned_post:, file:)
-      url = URI.parse(presigned_post.fetch('url'))
+      url = URI.parse(presigned_post.fetch("url"))
 
-      body = presigned_post['fields'].merge({ 'file' => file.read })
+      body = presigned_post["fields"].merge({ "file" => file.read })
       response = HTTParty.post(url, multipart: true, body: body)
 
       case response.code
       when 204
         true
       else
-        raise(BlinkaReporter::Error, 'Could not upload file to storage')
+        raise(BlinkaReporter::Error, "Could not upload file to storage")
       end
     end
 
     def self.to_shrine_object(presigned_post:, file:, filename:)
-      storage, idx = presigned_post.dig('fields', 'key').split('/')
+      storage, idx = presigned_post.dig("fields", "key").split("/")
       {
-        "id": idx,
-        "storage": storage,
-        "metadata": {
-          "size": file.size,
-          "filename": filename,
-          "mime_type": presigned_post.dig('fields', 'Content-Type')
+        id: idx,
+        storage: storage,
+        metadata: {
+          size: file.size,
+          filename: filename,
+          mime_type: presigned_post.dig("fields", "Content-Type")
         }
       }
     end

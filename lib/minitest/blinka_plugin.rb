@@ -1,14 +1,15 @@
-require 'minitest'
-require 'json'
-require 'blinka_reporter/minitest_adapter'
-require 'blinka_reporter/client'
+require "minitest"
+require "json"
+require "blinka_reporter/minitest_adapter"
+require "blinka_reporter/client"
 
 module Minitest
   def self.plugin_blinka_init(options)
     reporter.reporters << BlinkaPlugin::Reporter.new(options[:io], options)
   end
 
-  def plugin_blinka_options(opts, options); end
+  def plugin_blinka_options(opts, options)
+  end
 
   module BlinkaPlugin
     class Reporter < Minitest::StatisticsReporter
@@ -31,8 +32,8 @@ module Minitest
       private
 
       def json_report
-        report_path = ENV['BLINKA_PATH']
-        return if report_path.nil? || report_path.eql?('')
+        report_path = ENV["BLINKA_PATH"]
+        return if report_path.nil? || report_path.eql?("")
 
         result = {
           total_time: total_time,
@@ -45,17 +46,17 @@ module Minitest
             end || []
         }
 
-        if ENV['BLINKA_APPEND'] == 'true' && File.exist?(report_path)
+        if ENV["BLINKA_APPEND"] == "true" && File.exist?(report_path)
           existing =
             JSON.parse(File.open(report_path).read, symbolize_names: true)
           result[:results] = existing[:results] + result[:results]
           result[:nbr_tests] = existing[:nbr_tests] + result[:nbr_tests]
-          result[:nbr_assertions] =
-            existing[:nbr_assertions] + result[:nbr_assertions]
+          result[:nbr_assertions] = existing[:nbr_assertions] +
+            result[:nbr_assertions]
           result[:total_time] = existing[:total_time] + result[:total_time]
         end
 
-        File.open(report_path, 'w+') do |file|
+        File.open(report_path, "w+") do |file|
           file.write(JSON.pretty_generate(result))
         end
 

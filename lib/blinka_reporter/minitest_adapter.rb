@@ -5,7 +5,7 @@ module BlinkaReporter
     end
 
     def path
-      @path ||= source_location.first.gsub(Dir.getwd, '').delete_prefix('/')
+      @path ||= source_location.first.gsub(Dir.getwd, "").delete_prefix("/")
     end
 
     def line
@@ -24,8 +24,8 @@ module BlinkaReporter
     end
 
     def kind
-      parts = self.path.gsub('test/', '').split('/')
-      parts.length > 1 ? parts.first : 'general'
+      parts = self.path.gsub("test/", "").split("/")
+      parts.length > 1 ? parts.first : "general"
     end
 
     def message
@@ -60,7 +60,7 @@ module BlinkaReporter
     end
 
     def image
-      return unless kind == 'system'
+      return unless kind == "system"
 
       image_path =
         if defined?(Capybara) && Capybara.respond_to?(:save_path) &&
