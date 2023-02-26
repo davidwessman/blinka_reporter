@@ -1,15 +1,15 @@
-require 'httparty'
-require 'ox'
+require "httparty"
+require "ox"
 
-require 'blinka_reporter/blinka'
-require 'blinka_reporter/config'
-require 'blinka_reporter/error'
-require 'blinka_reporter/tap'
+require "blinka_reporter/blinka"
+require "blinka_reporter/config"
+require "blinka_reporter/error"
+require "blinka_reporter/tap"
 
 module BlinkaReporter
   class Client
     def parse(paths: nil)
-      paths ||= ['./blinka_results.json']
+      paths ||= ["./blinka_results.json"]
       paths = Array(paths)
       paths.each do |path|
         unless File.exist?(path)
@@ -22,9 +22,9 @@ module BlinkaReporter
 
       merge_results(
         paths.map do |path|
-          if path.end_with?('.xml')
+          if path.end_with?(".xml")
             parse_xml(path: path)
-          elsif path.end_with?('.json')
+          elsif path.end_with?(".json")
             parse_json(path: path)
           else
             raise(
@@ -62,12 +62,12 @@ module BlinkaReporter
     def parse_xml(path:)
       data = Ox.load_file(path, { symbolize_keys: true, skip: :skip_none })
       test_suite = data.root
-      unless test_suite.name == 'testsuite'
+      unless test_suite.name == "testsuite"
         raise("Root element is not <testsuite>, instead #{test_suite.name}")
       end
 
-      properties = test_suite.nodes.select { |node| node.name == 'properties' }
-      test_cases = test_suite.nodes.select { |node| node.name == 'testcase' }
+      properties = test_suite.nodes.select { |node| node.name == "properties" }
+      test_cases = test_suite.nodes.select { |node| node.name == "testcase" }
       {
         nbr_tests: Integer(test_suite.tests || 0),
         total_time: Float(test_suite.time),
@@ -79,7 +79,7 @@ module BlinkaReporter
     def xml_seed(ox_properties)
       ox_properties.each do |property|
         property.nodes.each do |node|
-          return node.attributes[:value] if node.attributes[:name] == 'seed'
+          return node.attributes[:value] if node.attributes[:name] == "seed"
         end
       end
       nil
@@ -89,18 +89,18 @@ module BlinkaReporter
     def xml_test_cases(test_cases)
       test_cases.map do |test_case|
         result = {
-          kind: Array(test_case.attributes[:classname]&.split('.'))[1],
+          kind: Array(test_case.attributes[:classname]&.split("."))[1],
           name: test_case.attributes[:name],
-          path: test_case.attributes[:file]&.delete_prefix('./'),
+          path: test_case.attributes[:file]&.delete_prefix("./"),
           time: Float(test_case.attributes[:time] || 0)
         }
         if test_case.nodes.any?
-          skipped = test_case.nodes.any? { |node| node.name == 'skipped' }
-          result[:result] = 'skip' if skipped
+          skipped = test_case.nodes.any? { |node| node.name == "skipped" }
+          result[:result] = "skip" if skipped
           failure =
-            test_case.nodes.select { |node| node.name == 'failure' }.first
+            test_case.nodes.select { |node| node.name == "failure" }.first
           if failure
-            result[:result] = 'fail'
+            result[:result] = "fail"
 
             # Needs to be double quotation marks to work properly
             result[:backtrace] = failure.text.split("\n")
@@ -108,7 +108,7 @@ module BlinkaReporter
             result[:message] = failure.attributes[:message]
           end
         else
-          result[:result] = 'pass'
+          result[:result] = "pass"
         end
         result
       end

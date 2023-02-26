@@ -23,22 +23,22 @@ module BlinkaReporter
     def test_results(results)
       report = []
       results.each_with_index do |test, index|
-        test_str = "#{test[:path]} - #{test[:name].tr('#', '_')}"
+        test_str = "#{test[:path]} - #{test[:name].tr("#", "_")}"
         result = test[:result]
-        if result == 'pass'
+        if result == "pass"
           report << "ok #{index + 1} - #{test_str}"
-        elsif result == 'skip'
+        elsif result == "skip"
           report << "ok #{index + 1} # skip: #{test_str}"
-        elsif result == 'fail'
+        elsif result == "fail"
           report << "not ok #{index + 1} - failed: #{test_str}"
           test[:message].split('\n') do |line|
-            report << "##{' ' * TAP_COMMENT_PAD + line}"
+            report << "##{" " * TAP_COMMENT_PAD + line}"
           end
-          report << '#'
+          report << "#"
           Array(test[:backtrace]).each do |line|
-            report << "##{' ' * TAP_COMMENT_PAD + line}"
+            report << "##{" " * TAP_COMMENT_PAD + line}"
           end
-          report << ''
+          report << ""
         end
       end
       report.join("\n")

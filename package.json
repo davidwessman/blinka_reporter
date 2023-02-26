@@ -4,19 +4,21 @@
   "author": "David Wessman <david@wessman.co>",
   "license": "MIT",
   "devDependencies": {
-    "@prettier/plugin-ruby": "^3.2.2",
     "husky": "^8.0.3",
-    "lint-staged": "^13.1.2"
-  },
-  "scripts": {
-    "pretty": "./node_modules/.bin/prettier --write ."
+    "lint-staged": "^13.1.2",
+    "prettier": "^2.8.4"
   },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
     }
   },
+  "scripts": {
+    "pretty": "./node_modules/.bin/prettier --write . && stree write './**/*.rb'",
+    "prepare": "husky install"
+  },
   "lint-staged": {
-    "*.{md,rb,json,yml,gemspec}": "./node_modules/.bin/prettier --write"
+    "*.{rb,gemspec}": "stree write",
+    "*.{js,css,md,json,yml}": "./node_modules/.bin/prettier --write"
   }
 }

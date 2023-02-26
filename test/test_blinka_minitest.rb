@@ -1,60 +1,60 @@
-require 'minitest/autorun'
-require 'mocha/minitest'
-require 'blinka_reporter/minitest_adapter'
+require "minitest/autorun"
+require "mocha/minitest"
+require "blinka_reporter/minitest_adapter"
 
 class MinitestAdapterTest < Minitest::Test
   def test_source_location
-    test_result = Minitest::Result.new('test_source_location')
+    test_result = Minitest::Result.new("test_source_location")
     test_result.source_location = [
       "#{__dir__}/model/test_blinka_minitest.rb",
       10
     ]
     blinka = BlinkaReporter::MinitestAdapter.new(test_result)
 
-    assert_equal('test/model/test_blinka_minitest.rb', blinka.path)
+    assert_equal("test/model/test_blinka_minitest.rb", blinka.path)
   end
 
   def test_kind
-    test_result = Minitest::Result.new('test_kind')
+    test_result = Minitest::Result.new("test_kind")
     test_result.source_location = [
       "#{__dir__}/model/test_blinka_minitest.rb",
       10
     ]
     blinka = BlinkaReporter::MinitestAdapter.new(test_result)
 
-    assert_equal('model', blinka.kind)
+    assert_equal("model", blinka.kind)
   end
 
   def test_kind_no_folder
-    test_result = Minitest::Result.new('test_kind_no_folder')
+    test_result = Minitest::Result.new("test_kind_no_folder")
     test_result.source_location = ["#{__dir__}/test_blinka_minitest.rb", 10]
     blinka = BlinkaReporter::MinitestAdapter.new(test_result)
 
-    assert_equal('general', blinka.kind)
+    assert_equal("general", blinka.kind)
   end
 
   def test_message
-    test_result = Minitest::Result.new('test')
+    test_result = Minitest::Result.new("test")
     test_result.failures = [
-      Minitest::Assertion.new('Expected nil to not be nil')
+      Minitest::Assertion.new("Expected nil to not be nil")
     ]
     blinka = BlinkaReporter::MinitestAdapter.new(test_result)
 
     assert_equal(
-      'Minitest::Assertion: Expected nil to not be nil',
+      "Minitest::Assertion: Expected nil to not be nil",
       blinka.message
     )
   end
 
   def test_message_no_failure
-    test_result = Minitest::Result.new('test')
+    test_result = Minitest::Result.new("test")
     blinka = BlinkaReporter::MinitestAdapter.new(test_result)
 
     assert_nil(blinka.message)
   end
 
   def test_backtrace
-    test_result = Minitest::Result.new('test')
+    test_result = Minitest::Result.new("test")
     backtrace = [
       "/Users/davidwessman/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/minitest-5.14.2/lib/minitest/assertions.rb:183:in `assert'",
       "/Users/davidwessman/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/minitest-5.14.2/lib/minitest/assertions.rb:303:in `assert_nil'",
@@ -81,7 +81,7 @@ class MinitestAdapterTest < Minitest::Test
       "/Users/davidwessman/.rbenv/versions/2.7.1/lib/ruby/gems/2.7.0/gems/minitest-5.14.2/lib/minitest.rb:68:in `block in autorun'"
     ]
     test_result.failures = [
-      Minitest::Assertion.new('Expected nil to not be nil')
+      Minitest::Assertion.new("Expected nil to not be nil")
     ]
     test_result.failure.set_backtrace(backtrace)
     blinka = BlinkaReporter::MinitestAdapter.new(test_result)
@@ -93,35 +93,35 @@ class MinitestAdapterTest < Minitest::Test
   end
 
   def test_backtrace_no_failure
-    test_result = Minitest::Result.new('test')
+    test_result = Minitest::Result.new("test")
     blinka = BlinkaReporter::MinitestAdapter.new(test_result)
     assert_nil(blinka.backtrace)
   end
 
   def test_result
-    test_result = Minitest::Result.new('test')
+    test_result = Minitest::Result.new("test")
     blinka = BlinkaReporter::MinitestAdapter.new(test_result)
     assert_equal(:pass, blinka.result)
 
     test_result.failures = [
-      Minitest::Assertion.new('Expected nil to not be nil')
+      Minitest::Assertion.new("Expected nil to not be nil")
     ]
     blinka = BlinkaReporter::MinitestAdapter.new(test_result)
     assert_equal(:fail, blinka.result)
 
-    test_result.failures = [Minitest::Skip.new('Skipped it all')]
+    test_result.failures = [Minitest::Skip.new("Skipped it all")]
     blinka = BlinkaReporter::MinitestAdapter.new(test_result)
     assert_equal(:skip, blinka.result)
 
     test_result.failures = [
-      Minitest::UnexpectedError.new('This should not have happened')
+      Minitest::UnexpectedError.new("This should not have happened")
     ]
     blinka = BlinkaReporter::MinitestAdapter.new(test_result)
     assert_equal(:error, blinka.result)
   end
 
   def test_image
-    test_result = Minitest::Result.new('test')
+    test_result = Minitest::Result.new("test")
     test_result.source_location = [
       "#{__dir__}/system/test_blinka_minitest.rb",
       10
@@ -133,7 +133,7 @@ class MinitestAdapterTest < Minitest::Test
   end
 
   def test_image_no_file
-    test_result = Minitest::Result.new('test')
+    test_result = Minitest::Result.new("test")
     test_result.source_location = [
       "#{__dir__}/system/test_blinka_minitest.rb",
       10
@@ -145,10 +145,10 @@ class MinitestAdapterTest < Minitest::Test
   end
 
   def test_report
-    test_result = Minitest::Result.new('test')
+    test_result = Minitest::Result.new("test")
     test_result.time = 0.000025
     test_result.failures = [
-      Minitest::Assertion.new('Expected nil to not be nil')
+      Minitest::Assertion.new("Expected nil to not be nil")
     ]
     test_result.failure.set_backtrace(
       ["test/model/test_blinka_minitest.rb:54:in `test_backtrace'"]
@@ -165,10 +165,10 @@ class MinitestAdapterTest < Minitest::Test
   end
 
   def test_report_with_image
-    test_result = Minitest::Result.new('test')
+    test_result = Minitest::Result.new("test")
     test_result.time = 0.000025
     test_result.failures = [
-      Minitest::Assertion.new('Expected nil to not be nil')
+      Minitest::Assertion.new("Expected nil to not be nil")
     ]
     test_result.failure.set_backtrace(
       ["test/system/test_blinka_minitest.rb:54:in `test_backtrace'"]
