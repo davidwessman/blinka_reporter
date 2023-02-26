@@ -16,7 +16,7 @@ gem install blinka-reporter
 or add to your Gemfile
 
 ```ruby
-gem 'blinka-reporter', '~> 0.7.0'
+gem 'blinka-reporter', '~> 0.7.2'
 ```
 
 ## Which ruby testing frameworks are supported?
@@ -47,11 +47,6 @@ Make sure [rspec_junit_formatter](https://github.com/sj26/rspec_junit_formatter)
 ```sh
 bundle exec rspec --formatter RspecJunitFormatter --out ./rspec.xml
 ```
-
-## How to send report to Blinka?
-
-1. Output your test results as described [above](#how-to-generate-test-report-in-the-right-format).
-1. `bundle exec blinka_reporter --path {./blinka_results.json,./rspec.xml} --blinka --team-id <BLINKA_TEAM_ID> --team-secret <BLINKA_TEAM_SECRET> --repository davidwessman/blinka_reporter`
 
 ## How can I send report in Github Action?
 

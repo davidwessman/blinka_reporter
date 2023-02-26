@@ -1,8 +1,6 @@
-require "httparty"
 require "ox"
+require "json"
 
-require "blinka_reporter/blinka"
-require "blinka_reporter/config"
 require "blinka_reporter/error"
 require "blinka_reporter/tap"
 
@@ -36,9 +34,8 @@ module BlinkaReporter
       )
     end
 
-    def report(data:, blinka: false, tap: false, config: nil)
+    def report(data:, tap: false)
       BlinkaReporter::Tap.report(data) if tap
-      BlinkaReporter::Blinka.report(config: config, data: data) if blinka
       0
     end
 
