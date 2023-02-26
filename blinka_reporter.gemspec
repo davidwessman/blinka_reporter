@@ -30,12 +30,10 @@ Gem::Specification.new do |gem|
   gem.executables = ["blinka_reporter"]
   gem.require_path = ["lib"]
 
-  gem.add_dependency("httparty", "~> 0.18")
   gem.add_dependency("ox", "~> 2")
   gem.add_development_dependency("dotenv", "~> 2.8.0")
   gem.add_development_dependency("minitest", "~> 5.0")
   gem.add_development_dependency("mocha", "~> 2.0")
   gem.add_development_dependency("rake", "~> 13")
-  gem.add_development_dependency("webmock", "~> 3.11")
   gem.add_development_dependency("syntax_tree", "~> 6.0")
 end

@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Removes support for reporting to Blinka, removing the need for httparty.
+
 ## [0.7.2] - 2023-02-19
 
 - Adds support for `BLINKA_APPEND=true` to append to existing JSON-files.
