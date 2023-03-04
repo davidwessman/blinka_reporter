@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 - Removes support for reporting to Blinka, removing the need for httparty.
+- Makes `Capybara.save_path` relative to the current working directory for images
 
 ## [0.7.2] - 2023-02-19
 

@@ -110,7 +110,7 @@ Output the test results to different paths with `BLINKA_PATH`.
 
 - name: Tests
   env:
-    BLINKA_JSON: ./tests.json
+    BLINKA_PATH: ./tests.json
   run: bundle exec rails test
 
 - name: Archive results for Blinka
