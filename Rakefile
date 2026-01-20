@@ -1,7 +1,7 @@
-require 'rake/testtask'
-require 'dotenv/load'
+require "rake/testtask"
+require "dotenv/load"
 
-Rake::TestTask.new { |t| t.libs << 'test' }
+Rake::TestTask.new { |t| t.libs << "test" }
 
-desc('Run tests')
+desc("Run tests")
 task(default: :test)

@@ -35,5 +35,5 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency("minitest", "~> 5.0")
   gem.add_development_dependency("mocha", "~> 2.0")
   gem.add_development_dependency("rake", "~> 13")
-  gem.add_development_dependency("syntax_tree", "~> 6.0")
+  gem.add_development_dependency("standard")
 end

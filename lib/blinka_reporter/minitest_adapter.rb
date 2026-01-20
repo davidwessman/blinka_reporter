@@ -24,8 +24,8 @@ module BlinkaReporter
     end
 
     def kind
-      parts = self.path.gsub("test/", "").split("/")
-      parts.length > 1 ? parts.first : "general"
+      parts = path.gsub("test/", "").split("/")
+      (parts.length > 1) ? parts.first : "general"
     end
 
     def message
@@ -64,7 +64,7 @@ module BlinkaReporter
 
       image_path =
         if defined?(Capybara) && Capybara.respond_to?(:save_path) &&
-             Capybara.save_path.present?
+            Capybara.save_path.present?
           "#{Capybara.save_path}/failures_#{name}.png".gsub(
             Dir.getwd,
             ""

@@ -14,9 +14,9 @@ module BlinkaReporter
       return if results.size == 0
 
       @data = <<~REPORT
-      TAP version 13
-      1..#{results.size}
-      #{test_results(results)}
+        TAP version 13
+        1..#{results.size}
+        #{test_results(results)}
       REPORT
     end
 

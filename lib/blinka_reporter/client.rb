@@ -42,7 +42,7 @@ module BlinkaReporter
     private
 
     def merge_results(data_array)
-      data = { total_time: 0, nbr_tests: 0, nbr_assertions: 0, results: [] }
+      data = {total_time: 0, nbr_tests: 0, nbr_assertions: 0, results: []}
       data_array.each do |result|
         data[:total_time] += result[:total_time] || 0
         data[:nbr_tests] += result[:nbr_tests] || 0
@@ -53,11 +53,11 @@ module BlinkaReporter
     end
 
     def parse_json(path:)
-      JSON.parse(File.open(path).read, symbolize_names: true)
+      JSON.parse(File.read(path), symbolize_names: true)
     end
 
     def parse_xml(path:)
-      data = Ox.load_file(path, { symbolize_keys: true, skip: :skip_none })
+      data = Ox.load_file(path, {symbolize_keys: true, skip: :skip_none})
       test_suite = data.root
       unless test_suite.name == "testsuite"
         raise("Root element is not <testsuite>, instead #{test_suite.name}")
@@ -95,7 +95,7 @@ module BlinkaReporter
           skipped = test_case.nodes.any? { |node| node.name == "skipped" }
           result[:result] = "skip" if skipped
           failure =
-            test_case.nodes.select { |node| node.name == "failure" }.first
+            test_case.nodes.find { |node| node.name == "failure" }
           if failure
             result[:result] = "fail"
 
@@ -113,7 +113,7 @@ module BlinkaReporter
 
     def get_image_path(backtrace)
       backtrace.each do |text|
-        path = /^(\[Screenshot\]|\[Screenshot Image\]):\s([\S]*)$/.match(text)
+        path = /^(\[Screenshot\]|\[Screenshot Image\]):\s(\S*)$/.match(text)
         next if path.nil?
         path = path[-1]
         next unless File.exist?(path)
