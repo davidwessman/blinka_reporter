@@ -1,4 +1,5 @@
 require "minitest/autorun"
+require "minitest/blinka_plugin"
 require "mocha/minitest"
 require "blinka_reporter/tap"
 

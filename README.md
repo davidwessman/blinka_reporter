@@ -34,6 +34,12 @@ Blinka is a web service developed by [@davidwessman](https://github.com/davidwes
 
 ### Minitest
 
+Minitest 6 no longer auto-loads plugins by default, so make sure the Blinka plugin is loaded in your test helper (eg `test/test_helper.rb`):
+
+```ruby
+require "minitest/blinka_plugin"
+```
+
 ```sh
 BLINKA_PATH=./tests.json bundle exec rails test
 ```
@@ -69,7 +75,7 @@ Add a step to your Github Action Workflow after running tests:
 // Blinka will automatically fetch the results when the Github Action Workflow is finished.
 - name: Archive results for Blinka
   if: always()
-  uses: actions/upload-artifact@v3
+  uses: actions/upload-artifact@v4
   with:
     name: blinka-${{ strategy.job-index }}
     path: |

@@ -5,10 +5,10 @@ require "blinka_reporter/client"
 
 module Minitest
   def self.plugin_blinka_init(options)
-    reporter.reporters << BlinkaPlugin::Reporter.new(options[:io], options)
+    reporter << BlinkaPlugin::Reporter.new(options[:io], options)
   end
 
-  def plugin_blinka_options(opts, options)
+  def self.plugin_blinka_options(opts, options)
   end
 
   module BlinkaPlugin
@@ -61,6 +61,18 @@ module Minitest
         puts
         puts("Test results written to `#{report_path}`")
       end
+    end
+  end
+end
+
+if Minitest.respond_to?(:extensions)
+  registered = Minitest.extensions.map(&:to_s).include?("blinka")
+
+  unless registered
+    if Minitest.respond_to?(:register_plugin)
+      Minitest.register_plugin(:blinka)
+    else
+      Minitest.extensions << "blinka"
     end
   end
 end
