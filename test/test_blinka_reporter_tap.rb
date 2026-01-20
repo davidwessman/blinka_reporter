@@ -6,8 +6,8 @@ class BlinkaReporterTapTest < Minitest::Test
   def test_tap_failures
     data = {
       results: [
-        { path: "first/test.rb", name: "test_tap_pass", result: "pass" },
-        { path: "first/test.rb", name: "test_tap_skip", result: "skip" },
+        {path: "first/test.rb", name: "test_tap_pass", result: "pass"},
+        {path: "first/test.rb", name: "test_tap_skip", result: "skip"},
         {
           path: "first/test.rb",
           name: "test_tap_fail",
