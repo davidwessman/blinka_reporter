@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-01-20
+
+- Support Minitest 6.
+
 ## [0.8.0] - 2023-03-04
 
 - Removes support for reporting to Blinka, removing the need for httparty.
