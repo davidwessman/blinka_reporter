@@ -33,7 +33,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency("ox", "~> 2")
   gem.add_development_dependency("dotenv", "~> 3.0.0")
   gem.add_development_dependency("minitest", ">= 5", "< 7")
-  gem.add_development_dependency("mocha", "~> 2.0")
+  gem.add_development_dependency("mocha", "~> 3.0")
   gem.add_development_dependency("rake", "~> 13")
   gem.add_development_dependency("standard")
 end
